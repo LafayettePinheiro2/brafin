@@ -4,39 +4,37 @@
     {% block menu %}
         {{ parent() }}
     {% endblock %}
-    <h1>Category list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <td><a href="{{ path('category_show', { 'id': category.id }) }}">{{ category.id }}</a></td>
-                <td>{{ category.name }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('category_show', { 'id': category.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('category_edit', { 'id': category.id }) }}">edit</a>
-                        </li>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="pull-left">Category list</h1>
+                <a href="{{ path('category_new') }}" class="btn btn-primary pull-right" role="button">Register a new Product</a>
+            </div>
+        </div>
+        <div class="row">
+            {% for category in categories %}
+            <!-- CATEGORY ITEM -->
+            <div class="col-md-3">
+                <div class="panel price panel-grey">
+                    <div class="panel-heading arrow_box text-center">
+                        <h3>{{ category.name }}</h3>
+                    </div>
+                    <div class="panel-body text-center">
+    {#                  <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>#}
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ category.name }}</li>
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('category_edit', { 'id': category.id }) }}">edit</a></li>
                     </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    <div class="panel-footer">
+                        <a class="btn btn-lg btn-block btn-primary" href="{{ path('category_show', { 'id': category.id }) }}">See IT!</a>
+                    </div>
+                </div>
+            </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('category_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+            <!-- /CATEGORY ITEM -->
+            {% endfor %}
+        
+        </div>
+    </div>
 {% endblock %}

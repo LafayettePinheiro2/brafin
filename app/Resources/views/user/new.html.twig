@@ -6,27 +6,29 @@
         {{ parent() }}
     {% endblock %}
     <div class="container">
-        <div class="cold-md-12">
-            
-            <h1>Become a member</h1>      
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="pull-left">Become a member</h1>
+                <a href="{{ path('homepage') }}" class="btn btn-primary pull-right" role="button">Back to products list</a>                                
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
                 
             {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <input type="submit" value="Register" />
-            
-            
-                {#{{ form_label(form.name) }}
-                {{ form_errors(form.name) }}
-                {{ form_widget(form.name) }}#}
-                
+                <div class="form-group row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Register a new user</button>
+                    </div>
+                </div>                
                 
             {{ form_end(form) }}                
                     
-        </div>
-            
-    {#    Link using path var#}
-    {# <a href="{{ path('user_index') }}">Back to the list</a>#}
-             
+            </div>             
         </div>
     </div>
 {% endblock %}
