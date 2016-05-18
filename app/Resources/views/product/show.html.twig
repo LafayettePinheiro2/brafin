@@ -4,40 +4,38 @@
     {% block menu %}
         {{ parent() }}
     {% endblock %}
-    <h1>Product</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Available</th>
-                <td>{% if product.available %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('product_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('product_edit', { 'id': product.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="pull-left">Product view</h1>
+                <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to product list</a>
+                <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
+                
+                {{ form_start(delete_form) }}
+                    <input class="btn btn-primary pull-right" type="submit" value="Delete">
+                {{ form_end(delete_form) }}                
+            </div>
+        </div>
+        <div class="row">
+            <!-- PRODUCT ITEM -->
+            <div class="col-md-3">
+                <div class="panel price panel-grey">
+                    <div class="panel-heading arrow_box text-center">
+                        <h3>{{ product.name }}</h3>
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ product.description }}</li>
+                        <li class="list-group-item"><i class=""></i> {% if product.available %}Yes{% else %}No{% endif %}</li>
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a></li>
+                    </ul>
+                    <div class="panel-footer">
+                        <a class="btn btn-lg btn-block btn-primary" href="{{ path('product_show', { 'id': product.id }) }}">GET IT!</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /PRODUCT ITEM -->
+        
+        </div>
+    </div>
 {% endblock %}

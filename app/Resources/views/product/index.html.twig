@@ -5,43 +5,39 @@
         {{ parent() }}
     {% endblock %}
     
-    <h1>Product list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Available</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{% if product.available %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('product_show', { 'id': product.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>
-                        </li>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="pull-left">Product list</h1>
+                <a href="{{ path('product_new') }}" class="btn btn-primary pull-right" role="button">Register a new Product</a>
+            </div>
+        </div>
+        <div class="row">
+            {% for product in products %}
+            <!-- PRODUCT ITEM -->
+            <div class="col-md-3">
+                <div class="panel price panel-grey">
+                    <div class="panel-heading arrow_box text-center">
+                        <h3>{{ product.name }}</h3>
+                    </div>
+                    <div class="panel-body text-center">
+    {#                  <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>#}
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ product.description }}</li>
+                        <li class="list-group-item"><i class=""></i> {% if product.available %}Yes{% else %}No{% endif %}</li>
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a></li>
                     </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    <div class="panel-footer">
+                        <a class="btn btn-lg btn-block btn-primary" href="{{ path('product_show', { 'id': product.id }) }}">GET IT!</a>
+                    </div>
+                </div>
+            </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('product_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+            <!-- /PRODUCT ITEM -->
+            {% endfor %}
+        
+        </div>
+    </div>
 {% endblock %}
