@@ -25,7 +25,11 @@
     {#                  <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>#}
                     </div>
                     <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ product.user }}</li>
                         <li class="list-group-item"><i class="icon-ok text-success"></i> {{ product.description }}</li>
+                        {% for category in product.categories %}
+                            <li class="list-group-item">{{ category.name }}</li>
+                        {% endfor %}
                         <li class="list-group-item"><i class=""></i> {% if product.available %}Yes{% else %}No{% endif %}</li>
                         <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a></li>
                     </ul>
