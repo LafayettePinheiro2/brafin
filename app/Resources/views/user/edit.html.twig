@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% block menu %}
+        {{ parent() }}
+    {% endblock %}
     <h1>User edit</h1>
 
     {{ form_start(edit_form) }}

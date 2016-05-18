@@ -3,15 +3,33 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Brafin{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {% stylesheets '@AppBundle/Resources/public/css/style.css' filter="cssrewrite" %}
+                <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+            {% endstylesheets %}
+
+            {% stylesheets '@bootstrap_css' %}
+                <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+            {% endstylesheets %}
+        
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}
+        {% block body %}            
             {% block menu %}
                 {% include 'default/menu.html.twig' %}
-            {% endblock %}
+            {% endblock %}            
         {% endblock %}
-        {% block javascripts %}{% endblock %}
+        
+        {% block javascripts %}        
+            {% javascripts '@AppBundle/Resources/public/js/script.js' filter="cssrewrite" %}
+                <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+            {% endjavascripts %}
+            
+            {% javascripts '@jquery' '@bootstrap_js' %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>

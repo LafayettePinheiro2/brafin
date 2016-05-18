@@ -3,33 +3,5 @@
 {% block body %}
     {% block menu %}
         {{ parent() }}
-        
-        {% block javascripts %}
-            {#{% javascripts '@jquery @bootstrap_js' %}
-                <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
-            {% endjavascripts %}
-            {% javascripts '@AppBundle/Resources/public/js/script.js' filter="cssrewrite" %}
-                <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
-            {% endjavascripts %}#}
-            
-            {% javascripts '@jquery' '@bootstrap_js' %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
-        
-        
     {% endblock %}
-{% endblock %}
-
-{% block stylesheets %}
-    {#{% stylesheets '@bootstrap_css' %}
-        <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
-    {% endstylesheets %}
-    {% stylesheets '@AppBundle/Resources/public/css/style.css' filter="cssrewrite" %}
-        <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
-    {% endstylesheets %}#}
-    
-    {% stylesheets '@bootstrap_css' %}
-        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
-    {% endstylesheets %}
 {% endblock %}

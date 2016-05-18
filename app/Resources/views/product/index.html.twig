@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% block menu %}
+        {{ parent() }}
+    {% endblock %}
+    
     <h1>Product list</h1>
 
     <table>
