@@ -1,19 +1,32 @@
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %} 
 {% extends 'base.html.twig' %}
 
 {% block body %}
     {% block menu %}
         {{ parent() }}
     {% endblock %}
-    <h1>User creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="container">
+        <div class="cold-md-12">
+            
+            <h1>Become a member</h1>      
+                
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" value="Register" />
+            
+            
+                {#{{ form_label(form.name) }}
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name) }}#}
+                
+                
+            {{ form_end(form) }}                
+                    
+        </div>
+            
+    {#    Link using path var#}
+    {# <a href="{{ path('user_index') }}">Back to the list</a>#}
+             
+        </div>
+    </div>
 {% endblock %}

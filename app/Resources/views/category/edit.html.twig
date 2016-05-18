@@ -1,6 +1,10 @@
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %} 
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% block menu %}
+        {{ parent() }}
+    {% endblock %}
     <h1>Category edit</h1>
 
     {{ form_start(edit_form) }}
