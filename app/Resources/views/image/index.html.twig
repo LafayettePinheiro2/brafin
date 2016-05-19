@@ -4,39 +4,36 @@
     {% block menu %}
         {{ parent() }}
     {% endblock %}
-    <h1>Image list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Location</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for image in images %}
-            <tr>
-                <td><a href="{{ path('image_show', { 'id': image.id }) }}">{{ image.id }}</a></td>
-                <td>{{ image.location }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('image_show', { 'id': image.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('image_edit', { 'id': image.id }) }}">edit</a>
-                        </li>
+    
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="pull-left">Image list</h1>
+                <a href="{{ path('image_new') }}" class="btn btn-primary pull-right" role="button">Register a new Image</a>
+            </div>
+        </div>
+        <div class="row">
+            {% for image in images %}
+            <!-- PRODUCT ITEM -->
+            <div class="col-md-3">
+                <div class="panel price panel-grey">
+                    <div class="panel-heading arrow_box text-center">
+                        <a href="{{ asset('uploads/' ~ image.path) }}"><img src="{{ asset('uploads/' ~ image.path) }}" height="100" width="100"></a>
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ image.path }}</li>                        
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('image_edit', { 'id': image.id }) }}">edit</a></li>
                     </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('image_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+                    <div class="panel-footer">
+                        <a class="btn btn-lg btn-block btn-primary" href="{{ path('image_show', { 'id': image.id }) }}">Check it</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        
+        </div>
+    </div>
+    
+    
 {% endblock %}

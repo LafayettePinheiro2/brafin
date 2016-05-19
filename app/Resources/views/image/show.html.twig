@@ -4,32 +4,33 @@
     {% block menu %}
         {{ parent() }}
     {% endblock %}
-    <h1>Image</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ image.id }}</td>
-            </tr>
-            <tr>
-                <th>Location</th>
-                <td>{{ image.location }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('image_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('image_edit', { 'id': image.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="pull-left">Image view</h1>
+                <a href="{{ path('image_index') }}" class="btn btn-primary pull-right" role="button">Back to image list</a>
+                <a href="{{ path('image_edit', { 'id': image.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
+                
+                {{ form_start(delete_form) }}
+                    <input class="btn btn-primary pull-right" type="submit" value="Delete">
+                {{ form_end(delete_form) }}                
+            </div>
+        </div>
+        <div class="row">
+            <!-- IMAGE ITEM -->
+            <div class="col-md-3">
+                <div class="panel price panel-grey">
+                    <div class="panel-heading arrow_box text-center">
+                         <a href="{{ asset('uploads/' ~ image.path) }}"><img src="{{ asset('uploads/' ~ image.path) }}" height="100" width="100"></a>
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ image.path }}</li>
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('image_edit', { 'id': image.id }) }}">edit</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /IMAGE ITEM -->
+        
+        </div>
+    </div>
 {% endblock %}

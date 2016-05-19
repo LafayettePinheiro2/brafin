@@ -1,25 +1,36 @@
-{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %} 
+{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %} 
 {% extends 'base.html.twig' %}
 
 {% block body %}
     {% block menu %}
         {{ parent() }}
     {% endblock %}
-    <h1>Image edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('image_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="pull-left">Edit image</h1>
+                <a href="{{ path('image_index') }}" class="btn btn-primary pull-right" role="button">Back to the list</a>                
+                {{ form_start(delete_form) }}
+                <input class="btn btn-primary pull-right" type="submit" value="Delete">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            </div>
+        </div>
+    </div>
+            
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_start(edit_form) }}
+                    {{ form_widget(edit_form) }}
+
+                    <div class="form-group row">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Edit image</button>
+                        </div>
+                    </div>
+                {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
