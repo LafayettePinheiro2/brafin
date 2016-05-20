@@ -3,12 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Column(type="integer")
@@ -21,42 +24,49 @@ class User
      * @ORM\Column(type="string", length=100)
      */
     private $name;
-    
+
     /**
      * @ORM\Column(type="string", length=100)
      */
     private $surname;
-    
+
     /**
      * @ORM\Column(type="string", length=100)
      */
     private $email;
-    
-    
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $password;
+
     /**
      * @ORM\Column(type="string", length=100)
      */
     private $role;
-    
-  
+
     /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="user")
      */
     private $products;
-    
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Message", mappedBy="user")
      */
-    private $messages;  
-    
-    
+    private $messages;
+
     /**
      * @ORM\OneToMany(targetEntity="Image", mappedBy="user")
      */
     private $images;
 
-    
+
     /**
      * Constructor
      */
@@ -150,6 +160,54 @@ class User
     }
 
     /**
+     * Set password
+     *
+     * @param string $plainPassword
+     *
+     * @return User
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
      * Set role
      *
      * @param string $role
@@ -239,7 +297,7 @@ class User
     public function getMessages()
     {
         return $this->messages;
-    }    
+    }
 
     /**
      * Add image
@@ -274,8 +332,28 @@ class User
     {
         return $this->images;
     }
-    
+
     public function __toString() {
         return $this->name . ' '.$this->surname;
     }
+
+    public function getSalt()
+    {
+        // The bcrypt algorithm doesn't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
+    }
+
+    public function getRoles()
+    {
+    }
+
+    public function getUsername()
+    {
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
 }
