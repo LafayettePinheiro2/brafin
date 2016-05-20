@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ProductType extends AbstractType
 {
@@ -19,9 +20,14 @@ class ProductType extends AbstractType
             ->add('description')
             ->add('available')
             ->add('user')
-            ->add('categories')
-        ;
+            ->add('categories', EntityType::class, array(
+                'class' => 'AppBundle:Category',
+                'choice_label' => 'name',
+                'multiple'     => true,
+                'expanded'     => true
+            ));
     }
+    
     
     /**
      * @param OptionsResolver $resolver
