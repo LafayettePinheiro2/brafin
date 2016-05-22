@@ -47,9 +47,19 @@ class ImageController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
+            if(null !== $request->query->get('product-id')){
+                $productId = $request->query->get('product-id');
+                $product = $em->getRepository('AppBundle:Product')->find($productId);
+                $image->setProduct($product);
+            }
+            
             $em->persist($image);
             $em->flush();
 
+            if(null !== $productId){
+                return $this->redirectToRoute('product_show', array('id' => $productId));
+            } 
             return $this->redirectToRoute('image_show', array('id' => $image->getId()));
         }
 
@@ -112,13 +122,24 @@ class ImageController extends Controller
     {
         $form = $this->createDeleteForm($image);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
+            
+            if(null !== $request->query->get('product-id')){
+                $productId = $request->query->get('product-id');
+                $product = $em->getRepository('AppBundle:Product')->find($productId);
+                $product->removeImage($image);
+            } 
+            
             $em->remove($image);
             $em->flush();
         }
 
+        if(null !== $productId){
+            return $this->redirectToRoute('product_show', array('id' => $productId));
+        }
         return $this->redirectToRoute('image_index');
     }
 

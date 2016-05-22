@@ -98,6 +98,10 @@ class ProductController extends Controller
         $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
         $editForm->handleRequest($request);
+        
+        $image = new Image();
+        $imageForm = $this->createForm('AppBundle\Form\ImageType', $image);
+        $deleteImageForm = $this->createDeleteImageForm($image);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -111,41 +115,10 @@ class ProductController extends Controller
             'product' => $product,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'image_form' => $imageForm->createView(),
+            'delete_image_form' => $deleteImageForm->createView(),
         ));
     }
-    
-    
-    
-    /**
-     * Add images to an existing product.
-     *
-     * @Route("/{id}/add-image", name="product_add_image")
-     * @Method({"GET", "POST"})
-     */
-    public function addImageAction(Request $request, Product $product)
-    {
-        
-        die('aqui');
-        
-        $deleteForm = $this->createDeleteForm($product);
-        $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($product);
-            $em->flush();
-
-            return $this->redirectToRoute('product_show', array('id' => $product->getId()));
-        }
-
-        return $this->render('product/edit.html.twig', array(
-            'product' => $product,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-    
     
 
     /**
@@ -183,4 +156,21 @@ class ProductController extends Controller
             ->getForm()
         ;
     }
+    
+    
+    /**
+     * Creates a form to delete a Image entity.
+     *
+     * @param Image $image The Image entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteImageForm(Image $image)
+    {
+        return $this->createFormBuilder()
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
+    
 }

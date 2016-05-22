@@ -1,4 +1,3 @@
-{#{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %} #}
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -9,17 +8,46 @@
         <div class="row">
             <div class="header-page col-md-12">
                 <h1 class="pull-left">Edit product</h1>
-                <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to the list</a>                
+                <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to products list</a>                
                 {{ form_start(delete_form) }}
-                <input class="btn btn-primary pull-right" type="submit" value="Delete">
-            {{ form_end(delete_form) }}
+                    <input class="btn btn-primary pull-right" type="submit" value="Delete">
+                {{ form_end(delete_form) }}
             </div>
         </div>
     </div>
             
     <div class="container">
         <div class="row">
-{#            <div class="col-md-6">#}
+            <div class="col-md-12">
+                {{ form_start(image_form, {'action' : path('image_new', { 'product-id': product.id })} ) }}
+                {{ form_widget(image_form) }}
+                
+                <div class="form-group">
+                    <button type="submit" class="product-image-button btn btn-primary">Add Image</button>
+                </div>
+                {{ form_end(image_form) }}
+            </div>
+        </div>
+    </div>
+            
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 product-images-wraper">
+                {% for image in product.images %}
+                    <div class="col-md-3 panel">
+                    <img src="{{ asset('uploads/' ~ image.path) }}" height="160" width="210" >
+                    {{ form_start(delete_image_form, {'method':'delete', 'action' : path('image_delete', { 'id' : image.id, 'product-id' : product.id } )}) }}
+                        {{ form_widget(delete_image_form) }}
+                        <input class="btn btn-primary" type="submit" value="Delete Image">
+                    {{ form_end(delete_image_form) }}   
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+            
+    <div class="container">
+        <div class="row">
             {{ form_start(edit_form, { 'attr': { 'class': '' } }) }}
             
                 <div class="col-md-5 form-group">
@@ -41,27 +69,20 @@
                         {% endfor %}
                 </div>
                 
-                <div class="col-md-8 form-group">
-                    {% for image in edit_form.images %}
-                        {{ form_label(image.file, 'Image', {'label_attr': {'class': ''} }) }}
-                        {{ form_errors(image.file) }}
-                        {{ form_widget(image.file, {'attr': {'class': ''} }) }}
-                    {% endfor %}
-                </div>
-                
                 <div class="col-md-5 form-group">
                     {{ form_label(edit_form.user, 'User', {'label_attr': {'class': ''} }) }}
                     {{ form_errors(edit_form.user) }}
                     {{ form_widget(edit_form.user, {'attr': {'class': 'form-control', 'rows':'10'} }) }}
                 </div>
                 
+                {{ form_row(edit_form._token) }}
+                {{ form_row(edit_form.available) }}
+                
                 <div class="col-md-12 form-group">
                     <button type="submit" class="btn btn-primary">Update product</button>
                 </div>
                 
-                {{ form_rest(edit_form) }}
             {{ form_end(edit_form, {'render_rest': false}) }}
-{#            </div>#}
         </div>
     </div>
     

@@ -6,11 +6,11 @@
         
         
         {% block stylesheets %}
-            {% stylesheets '@AppBundle/Resources/public/css/style.css' filter="cssrewrite" %}
-                <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
-            {% endstylesheets %}
             {% stylesheets '@bootstrap_css' %}
                 <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+            {% endstylesheets %}
+            {% stylesheets '@AppBundle/Resources/public/css/style.css' filter="cssrewrite" %}
+                <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
             {% endstylesheets %}
         {% endblock %}
         

@@ -9,8 +9,6 @@
         <div class="row">
             <div class="header-page col-md-12">
                 <h1 class="pull-left">{{ product.name }}</h1>
-                {#<input style="display:none;" type="file" name="file" id="file" class="inputfile" />
-                <label class="btn btn-primary pull-right" for="file">Choose a file</label>#}
                 
                 <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to products list</a>
                 <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>

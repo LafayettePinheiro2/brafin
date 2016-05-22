@@ -74,3 +74,17 @@ body{
 .panel-heading a:hover, .panel-heading a:focus {
     text-decoration: none;
 }
+
+.product-image-button {
+    margin-top: 11px;
+    margin-bottom: 54px;
+}
+
+.product-images-wraper {
+    margin-bottom: 50px;
+    min-height: 10px;
+}
+
+.product-images-wraper img {
+    padding-bottom: 8px;
+}
