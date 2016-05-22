@@ -1,4 +1,4 @@
-{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %} 
+{#{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %} #}
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -7,7 +7,7 @@
     {% endblock %}
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="header-page col-md-12">
                 <h1 class="pull-left">Edit product</h1>
                 <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to the list</a>                
                 {{ form_start(delete_form) }}
@@ -19,17 +19,49 @@
             
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                {{ form_start(edit_form) }}
-                    {{ form_widget(edit_form) }}
-
-                    <div class="form-group row">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Edit product</button>
-                        </div>
-                    </div>
-                {{ form_end(edit_form) }}
-            </div>
+{#            <div class="col-md-6">#}
+            {{ form_start(edit_form, { 'attr': { 'class': '' } }) }}
+            
+                <div class="col-md-5 form-group">
+                    {{ form_label(edit_form.name, 'Product Name', {'label_attr': {'class': ''} }) }}
+                    {{ form_errors(edit_form.name) }}
+                    {{ form_widget(edit_form.name, { 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                <div class="col-md-8 form-group">
+                    {{ form_label(edit_form.description, 'Description', {'label_attr': {'class': ''} }) }}
+                    {{ form_errors(edit_form.description) }}
+                    {{ form_widget(edit_form.description, {'attr': {'class': 'form-control', 'rows':'10'} }) }}
+                </div>
+                <div class="col-md-8 form-group categories-product">
+                    <label><strong>Categories  </strong></label><br />
+                        {% for category in edit_form.categories %}
+                                {{ form_label(category) }}
+                                {{ form_errors(category) }}
+                                {{ form_widget(category, {'attr': {'class': 'categories-product-checkbox'} }) }}
+                        {% endfor %}
+                </div>
+                
+                <div class="col-md-8 form-group">
+                    {% for image in edit_form.images %}
+                        {{ form_label(image.file, 'Image', {'label_attr': {'class': ''} }) }}
+                        {{ form_errors(image.file) }}
+                        {{ form_widget(image.file, {'attr': {'class': ''} }) }}
+                    {% endfor %}
+                </div>
+                
+                <div class="col-md-5 form-group">
+                    {{ form_label(edit_form.user, 'User', {'label_attr': {'class': ''} }) }}
+                    {{ form_errors(edit_form.user) }}
+                    {{ form_widget(edit_form.user, {'attr': {'class': 'form-control', 'rows':'10'} }) }}
+                </div>
+                
+                <div class="col-md-12 form-group">
+                    <button type="submit" class="btn btn-primary">Update product</button>
+                </div>
+                
+                {{ form_rest(edit_form) }}
+            {{ form_end(edit_form, {'render_rest': false}) }}
+{#            </div>#}
         </div>
     </div>
     

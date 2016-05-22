@@ -7,9 +7,12 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h1 class="pull-left">Product view</h1>
-                <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to product list</a>
+            <div class="header-page col-md-12">
+                <h1 class="pull-left">{{ product.name }}</h1>
+                {#<input style="display:none;" type="file" name="file" id="file" class="inputfile" />
+                <label class="btn btn-primary pull-right" for="file">Choose a file</label>#}
+                
+                <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to products list</a>
                 <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
                 
                 {{ form_start(delete_form) }}
@@ -17,22 +20,22 @@
                 {{ form_end(delete_form) }}                
             </div>
         </div>
-        <div class="row">
-            <!-- PRODUCT ITEM -->
-            <div class="col-md-3">
-                <div class="panel price panel-grey">
-                    <div class="panel-heading arrow_box text-center">
-                        <h3>{{ product.name }}</h3>
-                    </div>
-                    <ul class="list-group list-group-flush text-center">
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ product.description }}</li>
-                        <li class="list-group-item"><i class=""></i> {% if product.available %}Yes{% else %}No{% endif %}</li>
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a></li>
-                    </ul>
+        <div class="product">    
+            <div class="row">
+                <div class="col-md-4">
+
+                    {% for image in product.images %}
+                        <img src="{{ asset('uploads/' ~ image.path) }}" >
+                    {% endfor %}
                 </div>
+
+                <div class="col-md-8">
+                    <p><strong>Owner: </strong>{{ product.user }}</p>
+                    <p class="product-description"><strong>Description: </strong>{{ product.description }}</p>
+                    <p><strong>Available: </strong>{% if product.available %}Yes{% else %}No{% endif %}</p>
+                </div>
+
             </div>
-            <!-- /PRODUCT ITEM -->
-        
         </div>
     </div>
 {% endblock %}

@@ -8,7 +8,7 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="header-page col-md-12">
                 <h1 class="pull-left">Product list</h1>
                 <a href="{{ path('product_new') }}" class="btn btn-primary pull-right" role="button">Register a new Product</a>
             </div>
@@ -17,24 +17,32 @@
             {% for product in products %}
             <!-- PRODUCT ITEM -->
             <div class="col-md-3">
-                <div class="panel price panel-grey">
+                <div class="panel panel-default">
                     <div class="panel-heading arrow_box text-center">
-                        <h3>{{ product.name }}</h3>
+                        <a href="{{ path('product_show', { 'id': product.id }) }}"><h4>{{ product.name }}</h4></a>
                     </div>
-                    <div class="panel-body text-center">
-    {#                  <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>#}
+                    
+                    <div class="panel-body-products panel-body text-center">                    
+                        <ul class="list-group list-group-flush text-center">
+                            {% if product.images|length > 0 %}
+                                <a href="{{ path('product_show', { 'id': product.id }) }}"><img src="{{ asset('uploads/' ~ product.images[0].path) }}" height="100" width="130"></a>                            
+                            {% endif %}
+                            <li class="list-group-item"><i class="icon-ok text-success"></i> Owner: {{ product.user }}</li>
+                            {% if product.categories|length > 0 %}
+                                <li class="list-group-item">
+                                    {% for category in product.categories %}
+                                        <span class="product-category">
+                                            {{ category.name }}
+                                        </span>
+                                    {% endfor %}
+                                </li>
+                            {% endif %}
+                            <li class="list-group-item"><i class=""></i> Available: {% if product.available %}Yes{% else %}No{% endif %}</li>
+                        </ul>
                     </div>
-                    <ul class="list-group list-group-flush text-center">
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ product.user }}</li>
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ product.description }}</li>
-                        {% for category in product.categories %}
-                            <li class="list-group-item">{{ category.name }}</li>
-                        {% endfor %}
-                        <li class="list-group-item"><i class=""></i> {% if product.available %}Yes{% else %}No{% endif %}</li>
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a></li>
-                    </ul>
-                    <div class="panel-footer">
-                        <a class="btn btn-lg btn-block btn-primary" href="{{ path('product_show', { 'id': product.id }) }}">GET IT!</a>
+                        
+                    <div class="panel-footer text-center">
+                        <a class="btn btn-primary" href="{{ path('product_show', { 'id': product.id }) }}">Check it</a>
                     </div>
                 </div>
             </div>

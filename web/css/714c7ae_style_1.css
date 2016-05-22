@@ -1,27 +1,76 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : May 18, 2016, 12:37:08 AM
-    Author     : lafayette
-*/
-
 body{
 }
 
 .container {
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 100px !important;
+    padding-right: 100px !important;
 }
 
-h1 {
+/*h1 {
     margin-bottom: 45px;
     margin-top: 50px;
-}
+}*/
 
-.form-user{
+.form-user {
     margin-left: -8%;
 }
 
+.form-group {
+    margin-bottom: 26px;
+}
+
+.categories-product label {
+    font-weight: normal;
+}
+
+.categories-product input[type="checkbox"]{
+    margin: 10px;
+    margin-left: 0;
+}
+
+.inputfile + label {
+	cursor: pointer; 
+}
+
+.product-category {
+    font-size: 12px;
+    color: #FFF;
+    background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
+    margin-right: 2px;
+    padding: 5px 4px;
+    border-radius: 6px;
+}
+
+.panel-body-products {
+    min-height: 274px;
+}
+
+.header-page {
+    margin-top: 24px;
+    margin-bottom: 36px;
+}
+
+.header-page a, .header-page form {
+    margin-top: 20px;
+    margin-left: 3px;
+}
+
+.form-group {
+    margin-bottom: 23px;
+}
+
+.product {
+    margin-top: 60px;
+}
+
+.product-description {
+    text-align: justify;
+}
+
+.panel-heading a h4 {
+    color:black;
+}
+
+.panel-heading a:hover, .panel-heading a:focus {
+    text-decoration: none;
+}

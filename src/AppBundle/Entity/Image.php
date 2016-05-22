@@ -43,7 +43,7 @@ class Image
      */
     protected $file;
     
-    
+   
     
     /**
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="images")

@@ -5,3 +5,10 @@
  */
 
 
+$(document).ready(function() {
+    $('.inputfile').on('change', function(e) {
+        $(this).click();
+    });
+});
+
+

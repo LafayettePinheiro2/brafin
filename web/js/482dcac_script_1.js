@@ -5,10 +5,10 @@
  */
 
 
-$(document).ready(function() {
-    $('.inputfile').on('change', function(e) {
-        $(this).click();
-    });
-});
+//$(document).ready(function() {
+//    $('.inputfile').on('change', function(e) {
+//        console.log('entrou');
+//    });
+//});
 
 

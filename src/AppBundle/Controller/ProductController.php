@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\Image;
 use AppBundle\Form\ProductType;
 
 /**
@@ -42,10 +43,21 @@ class ProductController extends Controller
     public function newAction(Request $request)
     {
         $product = new Product();
+        
+        $img = new Image();
+        $product->getImages()->add($img);
+        
+        
         $form = $this->createForm('AppBundle\Form\ProductType', $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $images = $product->getImages();
+            $count = count($images);
+            $img = $images[$count-1];
+            $img->setProduct($product);
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -101,6 +113,40 @@ class ProductController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+    
+    
+    
+    /**
+     * Add images to an existing product.
+     *
+     * @Route("/{id}/add-image", name="product_add_image")
+     * @Method({"GET", "POST"})
+     */
+    public function addImageAction(Request $request, Product $product)
+    {
+        
+        die('aqui');
+        
+        $deleteForm = $this->createDeleteForm($product);
+        $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+
+            return $this->redirectToRoute('product_show', array('id' => $product->getId()));
+        }
+
+        return $this->render('product/edit.html.twig', array(
+            'product' => $product,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+    
+    
 
     /**
      * Deletes a Product entity.

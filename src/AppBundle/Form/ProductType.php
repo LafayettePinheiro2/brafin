@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class ProductType extends AbstractType
 {
@@ -18,14 +20,22 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('available')
+            ->add('available', HiddenType::class, array(
+                'data' => 1,
+            ))                
             ->add('user')
+//            ->add('user', HiddenType::class, array(
+//                'data' => GetActiveUser,
+//            ))  
             ->add('categories', EntityType::class, array(
                 'class' => 'AppBundle:Category',
                 'choice_label' => 'name',
                 'multiple'     => true,
                 'expanded'     => true
-            ));
+            ))
+            ->add('images', CollectionType::class, array(
+                'entry_type' => ImageType::class
+            ));    
     }
     
     
