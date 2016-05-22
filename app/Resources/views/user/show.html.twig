@@ -4,17 +4,17 @@
     {% block menu %}
         {{ parent() }}
     {% endblock %}
-    
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="pull-left">User view</h1>
                 <a href="{{ path('user_index') }}" class="btn btn-primary pull-right" role="button">Back to user list</a>
                 <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
-                
+
                 {{ form_start(delete_form) }}
                     <input class="btn btn-primary pull-right" type="submit" value="Delete">
-                {{ form_end(delete_form) }}                
+                {{ form_end(delete_form) }}
             </div>
         </div>
         <div class="row">
@@ -28,12 +28,11 @@
                         <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.name }}</li>
                         <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.surname }}</li>
                         <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.email }}</li>
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.role }}</li>
                     </ul>
                 </div>
             </div>
             <!-- /PRODUCT ITEM -->
-        
+
         </div>
     </div>
 {% endblock %}

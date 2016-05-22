@@ -4,8 +4,8 @@
     {% block menu %}
         {{ parent() }}
     {% endblock %}
-    
-    
+
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -25,7 +25,6 @@
                         <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.name }}</li>
                         <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.surname }}</li>
                         <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.email }}</li>
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.role }}</li>
                         <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a></li>
                     </ul>
                     <div class="panel-footer">
@@ -36,8 +35,8 @@
 
             <!-- /USER ITEM -->
             {% endfor %}
-        
+
         </div>
     </div>
-   
+
 {% endblock %}

@@ -50,6 +50,7 @@ class UserController extends Controller
                 ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setPlainPassword(null);
+            $user->setRoles(array('ROLE_USER'));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
