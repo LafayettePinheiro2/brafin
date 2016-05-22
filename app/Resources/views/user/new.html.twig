@@ -19,7 +19,11 @@
             <div class="form-user col-md-6">
 
             {{ form_start(form) }}
-                {{ form_widget(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.surname) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword.first) }}
+                {{ form_row(form.plainPassword.second) }}
                 <div class="form-group row">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">Register a new user</button>

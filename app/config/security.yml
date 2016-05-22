@@ -7,8 +7,10 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        database_users:
-            entity: { class: AppBundle:User, property: username }
+        brafin: #our db provider (?)
+            entity:
+              class: AppBundle:User
+              property: email
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -18,10 +20,11 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            provider: brafin
+            form_login:
+                username_parameter: _email
+                login_path: login
+                check_path: login
+            logout:
+                path:   /logout
+                target: /
