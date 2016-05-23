@@ -52,13 +52,18 @@ class ImageController extends Controller
                 $productId = $request->query->get('product-id');
                 $product = $em->getRepository('AppBundle:Product')->find($productId);
                 $image->setProduct($product);
+                
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Image added with success')
+                ;
             }
             
             $em->persist($image);
             $em->flush();
 
             if(null !== $productId){
-                return $this->redirectToRoute('product_show', array('id' => $productId));
+                return $this->redirectToRoute('product_edit', array('id' => $productId));
             } 
             return $this->redirectToRoute('image_show', array('id' => $image->getId()));
         }

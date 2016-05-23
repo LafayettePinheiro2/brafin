@@ -20,6 +20,19 @@
         {% block body %}            
             {% block menu %}
                 {% include 'default/menu.html.twig' %}
+                
+                {% if app.session.flashBag.has('success') %}
+                    <div class="container">
+                        <div class="alert alert-success">
+                            {% for msg in app.session.flashBag.get('success') %}
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Success:</span>
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                        
+                {% endif %}
             {% endblock %}            
         {% endblock %}
         

@@ -35,11 +35,8 @@
             <div class="col-md-12 product-images-wraper">
                 {% for image in product.images %}
                     <div class="col-md-3 panel">
-                    <img src="{{ asset('uploads/' ~ image.path) }}" height="160" width="210" >
-                    {{ form_start(delete_image_form, {'method':'delete', 'action' : path('image_delete', { 'id' : image.id, 'product-id' : product.id } )}) }}
-                        {{ form_widget(delete_image_form) }}
-                        <input class="btn btn-primary" type="submit" value="Delete Image">
-                    {{ form_end(delete_image_form) }}   
+                        <img src="{{ asset('uploads/' ~ image.path) }}" height="160" width="210" >
+                        <a id="product-remove-image" class="text-center" href="{{ path('product_delete_image', {'id' : product.id, 'image-id' : image.id }) }}">Delete Image</a>
                     </div>
                 {% endfor %}
             </div>

@@ -49,7 +49,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $role;
+    private $roles;
 
     /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="user")
@@ -208,27 +208,27 @@ class User implements UserInterface
     }
 
     /**
-     * Set role
+     * Set roles
      *
-     * @param string $role
+     * @param string $roles
      *
      * @return User
      */
-    public function setRole($role)
+    public function setRoles($roles)
     {
-        $this->role = $role;
+        $this->roles = $roles;
 
         return $this;
     }
 
     /**
-     * Get role
+     * Get roles
      *
      * @return string
      */
-    public function getRole()
+    public function getRoles()
     {
-        return $this->role;
+        return array('ROLE_USER');
     }
 
     /**
@@ -344,12 +344,9 @@ class User implements UserInterface
         return null;
     }
 
-    public function getRoles()
-    {
-    }
-
     public function getUsername()
     {
+      return $this->email;
     }
 
     public function eraseCredentials()
