@@ -21,51 +21,43 @@ class Product
      * @ORM\Column(type="string", length=100)
      */
     private $name;
-    
+
     /**
      * @ORM\Column(type="text", length=1000, nullable=true)
      */
     private $description;
-    
+
     /**
      * @ORM\Column(type="boolean", name="available", options={"default": true})
      */
     private $available;
-    
-    
+
+
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="products")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
-    
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="product")
-     */
-    private $messages;  
-    
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="products")
      * @ORM\JoinTable(name="products_categories")
      */
     private $categories;
-    
-    
+
+
     /**
      * @ORM\OneToMany(targetEntity="Image", mappedBy="product", cascade={"persist", "remove"})
      */
     private $images;
-    
-    
-    
+
+
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -153,40 +145,6 @@ class Product
     }
 
     /**
-     * Add message
-     *
-     * @param \AppBundle\Entity\Message $message
-     *
-     * @return Product
-     */
-    public function addMessage(\AppBundle\Entity\Message $message)
-    {
-        $this->messages[] = $message;
-
-        return $this;
-    }
-
-    /**
-     * Remove message
-     *
-     * @param \AppBundle\Entity\Message $message
-     */
-    public function removeMessage(\AppBundle\Entity\Message $message)
-    {
-        $this->messages->removeElement($message);
-    }
-
-    /**
-     * Get messages
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMessages()
-    {
-        return $this->messages;
-    }
-
-    /**
      * Add category
      *
      * @param \AppBundle\Entity\Category $category
@@ -220,7 +178,7 @@ class Product
         return $this->categories;
     }
 
-    
+
     /**
      * Set available
      *
@@ -278,7 +236,7 @@ class Product
     {
         return $this->images;
     }
-    
+
     public function __toString() {
         return $this->name;
     }
