@@ -11,6 +11,21 @@ body{
     padding-right: 5%;
 }
 
+
+/*HOMEPAGE*/ 
+
+.homepage-sidebar-content {
+    width: 25%; 
+    float: left;
+}
+
+.homepage-products-content {
+    width: 75%; 
+    float: right;
+}
+
+/*END HOMEPAGE*/
+
 .form-user {
     margin-left: -8%;
 }
@@ -102,6 +117,30 @@ body{
 .carousel-control.left, .carousel-control.right {
     background: none;
 }
+
+
+/*SIDEBAR*/
+
+
+.sidebar {
+}
+
+.sidebar ul {
+    background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
+    border: 1px solid #eee;
+    border-radius: 3px;
+}
+
+.nav-sidebar, .nav-sidebar li a {
+    color: #777;
+}
+
+.nav-sidebar li a:hover {
+    background-color: #dedede;
+}
+
+/*END SIDEBAR*/
+
 
 /*FOOTER*/
 

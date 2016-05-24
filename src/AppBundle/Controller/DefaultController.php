@@ -12,10 +12,15 @@ class DefaultController extends Controller
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
-    {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
-        ]);
+    {        
+        $em = $this->getDoctrine()->getManager();
+
+        $products = $em->getRepository('AppBundle:Product')->findAll();
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
+
+        return $this->render('default/index.html.twig', array(
+            'products' => $products,
+            'categories' => $categories,
+        ));
     }
 }
