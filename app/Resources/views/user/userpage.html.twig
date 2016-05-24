@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block menu %}
+        {{ parent() }}
+    {% endblock %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="pull-left">Welcome to your userpage, {{ user.name }}.</h1>
+                <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-primary pull-right" role="button">Edit Account Information</a>
+                <h4 class="pull-left">In here you can manage your products and your account information</h4>
+            </div>
+        </div>
+        <br><br><br><br>
+        <div class="row">
+            <!-- PRODUCT ITEM -->
+            {% for product in products %}
+
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading arrow_box text-center">
+                        <a href="{{ path('product_show', { 'id': product.id }) }}"><h4>{{ product.name }}</h4></a>
+                    </div>
+
+                    <div class="panel-body-products panel-body text-center">
+                        <ul class="list-group list-group-flush text-center">
+                            {% if product.images|length > 0 %}
+                                <a href="{{ path('product_show', { 'id': product.id }) }}"><img src="{{ asset('uploads/' ~ product.images[0].path) }}" height="100" width="130"></a>
+                            {% endif %}
+                            <li class="list-group-item"><i class="icon-ok text-success"></i> Owner: {{ product.user }}</li>
+                            {% if product.categories|length > 0 %}
+                                <li class="list-group-item">
+                                    {% for category in product.categories %}
+                                        <span class="product-category">
+                                            {{ category.name }}
+                                        </span>
+                                    {% endfor %}
+                                </li>
+                            {% endif %}
+                            <li class="list-group-item"><i class=""></i> Available: {% if product.available %}Yes{% else %}No{% endif %}</li>
+                        </ul>
+                    </div>
+
+                    <div class="panel-footer text-center">
+                        <a class="btn btn-primary" href="{{ path('product_show', { 'id': product.id }) }}">Check it</a>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+            <!-- /PRODUCT ITEM -->
+
+        </div>
+    </div>
+{% endblock %}

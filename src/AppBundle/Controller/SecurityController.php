@@ -5,6 +5,9 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Product;
 
 class SecurityController extends Controller
 {
@@ -29,6 +32,23 @@ class SecurityController extends Controller
               'error'         => $error,
           )
       );
+    }
+
+    /**
+     * Finds and displays User information.
+     *
+     * @Route("/userpage", name="userpage")
+     * @Method("GET")
+     */
+    public function userpageAction()
+    {
+        $user = $this->getUser();
+        $products = $user->getProducts();
+
+        return $this->render('user/userpage.html.twig', array(
+            'user' => $user,
+            'products' => $products,
+        ));
     }
 }
 ?>
