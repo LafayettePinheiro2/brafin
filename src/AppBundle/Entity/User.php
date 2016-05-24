@@ -62,7 +62,7 @@ class User implements UserInterface
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="user", cascade={"persist", "remove"})
      */
     private $images;
 

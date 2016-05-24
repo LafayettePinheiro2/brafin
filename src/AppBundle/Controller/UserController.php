@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
+use AppBundle\Entity\Image;
 
 /**
  * User controller.
@@ -42,6 +43,10 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
+        
+        $img = new Image();
+        $user->getImages()->add($img);
+        
         $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
 
