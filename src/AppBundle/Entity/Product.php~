@@ -58,7 +58,6 @@ class Product
      */
     public function __construct()
     {
-        $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -143,40 +142,6 @@ class Product
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * Add message
-     *
-     * @param \AppBundle\Entity\Message $message
-     *
-     * @return Product
-     */
-    public function addMessage(\AppBundle\Entity\Message $message)
-    {
-        $this->messages[] = $message;
-
-        return $this;
-    }
-
-    /**
-     * Remove message
-     *
-     * @param \AppBundle\Entity\Message $message
-     */
-    public function removeMessage(\AppBundle\Entity\Message $message)
-    {
-        $this->messages->removeElement($message);
-    }
-
-    /**
-     * Get messages
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMessages()
-    {
-        return $this->messages;
     }
 
     /**
