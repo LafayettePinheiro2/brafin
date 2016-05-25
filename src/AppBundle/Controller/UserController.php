@@ -35,6 +35,22 @@ class UserController extends Controller
     }
 
     /**
+     * Make Admin.
+     *
+     * @Route("/{id}", name="make_admin")
+     * @Method("GET")
+     */
+     public function makeAdmin(User $user){
+       $user->setRoles('ROLE_ADMIN');
+       
+       $em = $this->getDoctrine()->getManager();
+       $em->persist($user);
+       $em->flush();
+
+       return $this->redirectToRoute('user_index');
+     }
+
+    /**
      * Creates a new User entity.
      *
      * @Route("/new", name="user_new")
@@ -55,7 +71,6 @@ class UserController extends Controller
                 ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setPlainPassword(null);
-            $user->setRoles('ROLE_USER');
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

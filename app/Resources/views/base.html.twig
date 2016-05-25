@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Brafin{% endblock %}</title>
-        
-        
+
+
         {% block stylesheets %}
             {% stylesheets '@bootstrap_css' %}
                 <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
@@ -13,13 +13,13 @@
                 <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
             {% endstylesheets %}
         {% endblock %}
-        
+
 {#        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />#}
     </head>
     <body>
 {#        CONTENT WRAPER#}
         <div id="content-wraper">
-            
+
         {% block menu %}
             {% include 'menu.html.twig' %}
 
@@ -33,19 +33,31 @@
                         {% endfor %}
                     </div>
                 </div>
-
             {% endif %}
-        {% endblock %}   
-        
+
+            {% if app.session.flashBag.has('error') %}
+                <div class="container">
+                    <div class="alert alert-danger">
+                        {% for msg in app.session.flashBag.get('error') %}
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span>
+                            {{ msg }}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endblock %}
+
         {% block body %}{% endblock %}
-        
+
         </div> {#CONTENT WRAPER#}
-        
+
         {% block footer %}
             {% include 'footer.html.twig' %}
         {% endblock %}
-            
-        {% block javascripts %}                   
+
+        {% block javascripts %}
             {% javascripts '@jquery' '@bootstrap_js' %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
@@ -53,6 +65,6 @@
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
-    
+
     </body>
 </html>

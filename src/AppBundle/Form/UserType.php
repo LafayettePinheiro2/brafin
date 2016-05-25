@@ -30,6 +30,9 @@ class UserType extends AbstractType
                 'second_options' => array('label' => 'Repeat Password'),
 
             ))
+            ->add('roles', HiddenType::class, array(
+                'data' => 'ROLE_USER',
+            ))
             ->add('images', CollectionType::class, array(
                 'entry_type' => ImageType::class,
                 'allow_add' => true,

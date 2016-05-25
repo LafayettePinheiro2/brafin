@@ -46,15 +46,15 @@ doctrine:
         dbname:   "%database_name%"
         user:     "%database_user%"
         password: "%database_password%"
-        
+
 #        default
 #        charset:  UTF8
-        
+
         charset: utf8mb4
         default_table_options:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
-        
+
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -74,28 +74,27 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-    
-    
+
+
     # Assetic Configuration
 assetic:
     debug:          '%kernel.debug%'
 #    use_controller: false
     use_controller: false
     filters:
-        cssrewrite: ~        
-    
+        cssrewrite: ~
+
     assets:
         bootstrap_js:
             inputs:
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/js/bootstrap.js
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/js/carousel.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/modal.js
         bootstrap_css:
             inputs:
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap.css
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap-theme.css                
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap-theme.css
             filters: [cssrewrite]
-            
+
         bootstrap_glyphicons_ttf:
             inputs:
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf
