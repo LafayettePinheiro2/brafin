@@ -6,16 +6,30 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="{{ path('user_index') }}" class="btn btn-primary pull-right" role="button">Back to user list</a>
-                <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
 
-                {{ form_start(delete_form) }}
-                    <input class="btn btn-primary pull-right" type="submit" value="Delete">
-                {{ form_end(delete_form) }}
-                <h1 class="pull-left">Welcome to your userpage, {{ user.name }}.</h1>
-                <h4 class="pull-left">In here you can manage your products and your account information</h4>
+                {% if app.user.id == app.request.get('id') or is_granted('ROLE_ADMIN') %}
+                  <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
+
+                  <a href="{{ path('product_new') }}" class="btn btn-primary pull-right" role="button">Register a new Product</a>
+
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN')%}
+                  {{ form_start(delete_form) }}
+                      <input class="btn btn-primary pull-right" type="submit" value="Delete">
+                  {{ form_end(delete_form) }}
+                {% endif %}
+
+                <h1 class="pull-left">{{ user.name | capitalize }}'s userpage.</h1>
+
+                {% if app.user.id == app.request.get('id')%}
+                  <br><br><br><br>
+                  <h4 class="pull-left">In here you can manage your products and your account information</h4>
+                {% endif %}
+
             </div>
         </div>
-        <br><br><br><br>
+        <br><br><br>
         <div class="row">
             <!-- PRODUCT ITEM -->
             {% for product in products %}

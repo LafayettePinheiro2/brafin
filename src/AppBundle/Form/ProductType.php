@@ -22,7 +22,7 @@ class ProductType extends AbstractType
             ->add('description')
             ->add('available', HiddenType::class, array(
                 'data' => 1,
-            ))                
+            ))
             ->add('user')
 //            ->add('user', HiddenType::class, array(
 //                'data' => GetActiveUser,
@@ -36,10 +36,10 @@ class ProductType extends AbstractType
             ->add('images', CollectionType::class, array(
                 'entry_type' => ImageType::class,
                 'allow_add' => true,
-            ));    
+            ));
     }
-    
-    
+
+
     /**
      * @param OptionsResolver $resolver
      */

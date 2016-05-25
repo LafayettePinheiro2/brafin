@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}    
-    
+{% block body %}
+
     <div class="container">
         <div class="row">
             <div class="header-page col-md-12">
                 <h1 class="pull-left">Product list</h1>
-                <a href="{{ path('product_new') }}" class="btn btn-primary pull-right" role="button">Register a new Product</a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                  <a href="{{ path('product_new') }}" class="btn btn-primary pull-right" role="button">Register a new Product</a>
+                {% endif %}
             </div>
         </div>
         <div class="row">
@@ -17,11 +19,11 @@
                     <div class="panel-heading arrow_box text-center">
                         <a href="{{ path('product_show', { 'id': product.id }) }}"><h4>{{ product.name }}</h4></a>
                     </div>
-                    
-                    <div class="panel-body-products panel-body text-center">                    
+
+                    <div class="panel-body-products panel-body text-center">
                         <ul class="list-group list-group-flush text-center">
                             {% if product.images|length > 0 %}
-                                <a href="{{ path('product_show', { 'id': product.id }) }}"><img src="{{ asset('uploads/' ~ product.images[0].path) }}" height="100" width="130"></a>                            
+                                <a href="{{ path('product_show', { 'id': product.id }) }}"><img src="{{ asset('uploads/' ~ product.images[0].path) }}" height="100" width="130"></a>
                             {% endif %}
                             <li class="list-group-item"><i class="icon-ok text-success"></i> Owner: {{ product.user }}</li>
                             {% if product.categories|length > 0 %}
@@ -36,7 +38,7 @@
                             <li class="list-group-item"><i class=""></i> Available: {% if product.available %}Yes{% else %}No{% endif %}</li>
                         </ul>
                     </div>
-                        
+
                     <div class="panel-footer text-center">
                         <a class="btn btn-primary" href="{{ path('product_show', { 'id': product.id }) }}">Check it</a>
                     </div>
@@ -45,7 +47,7 @@
 
             <!-- /PRODUCT ITEM -->
             {% endfor %}
-        
+
         </div>
     </div>
 {% endblock %}
