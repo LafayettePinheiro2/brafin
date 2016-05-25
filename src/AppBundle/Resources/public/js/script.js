@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    
+
     $('.carousel-inner .item:first-child').addClass('active');
-    
+
     $('.carousel').carousel();
 });
 
@@ -17,8 +17,18 @@ $('.product-remove-image').on('click', function(e){
     }
 });
 
+$('.userId').on('click', function(e){
+    e.preventDefault();
 
- $('.category-list').on('click', function(e){
+    var agree = confirm('Are you sure you want to make this user administrator?');
+    if(agree) {
+        window.location.href = $(this).attr('href');
+    } else {
+        return false;
+    }
+});
+
+$('.category-list').on('click', function(e){
     e.preventDefault();
     
     var categoryId = {'categoryId' : $(this).attr('data-value')};

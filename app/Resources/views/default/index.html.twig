@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    
+
 <div class="container">
     <div class="row">
         <div class="header-page col-md-12">
             <h1 class="pull-left">Welcome to brafin</h1>
-            <a href="{{ path('user_new') }}" class="btn btn-primary pull-right" role="button">Register now!</a>
+            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+              <a href="{{ path('user_new') }}" class="btn btn-primary pull-right" role="button">Register now!</a>
+            {% endif %}
         </div>
     </div>
-      
-    <div class="row">  
+
+    <div class="row">
         <div class="homepage-sidebar-content">
             <div class="sidebar col-md-12">
                 <ul class="nav nav-sidebar" style="padding-left: 15px;" >
@@ -34,11 +36,11 @@
                 </ul>
             </div>
         </div>
-                    
+
         <div class="homepage-products-content">
             {% include 'default/content.html.twig' %}
         </div>
     </div>
 </div>
-    
+
 {% endblock %}

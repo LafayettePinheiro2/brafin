@@ -35,6 +35,22 @@ class UserController extends Controller
     }
 
     /**
+     * Make Admin.
+     *
+     * @Route("/{id}", name="make_admin")
+     * @Method("GET")
+     */
+     public function makeAdmin(User $user){
+       $user->setRoles('ROLE_ADMIN');
+       
+       $em = $this->getDoctrine()->getManager();
+       $em->persist($user);
+       $em->flush();
+
+       return $this->redirectToRoute('user_index');
+     }
+
+    /**
      * Creates a new User entity.
      *
      * @Route("/new", name="user_new")
@@ -43,10 +59,10 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
-        
+
         $img = new Image();
         $user->getImages()->add($img);
-        
+
         $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
 
@@ -55,7 +71,6 @@ class UserController extends Controller
                 ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setPlainPassword(null);
-            $user->setRoles('ROLE_USER');
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -79,9 +94,10 @@ class UserController extends Controller
     public function showAction(User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
-
+        $products = $user->getProducts();
         return $this->render('user/show.html.twig', array(
             'user' => $user,
+            'products' => $products,
             'delete_form' => $deleteForm->createView(),
         ));
     }

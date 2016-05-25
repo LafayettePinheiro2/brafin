@@ -5,28 +5,68 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="pull-left">User view</h1>
                 <a href="{{ path('user_index') }}" class="btn btn-primary pull-right" role="button">Back to user list</a>
-                <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
 
-                {{ form_start(delete_form) }}
-                    <input class="btn btn-primary pull-right" type="submit" value="Delete">
-                {{ form_end(delete_form) }}
+                {% if app.user.id == app.request.get('id') or is_granted('ROLE_ADMIN') %}
+                  <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
+
+                  <a href="{{ path('product_new') }}" class="btn btn-primary pull-right" role="button">Register a new Product</a>
+
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN')%}
+                  {{ form_start(delete_form) }}
+                      <input class="btn btn-primary pull-right" type="submit" value="Delete">
+                  {{ form_end(delete_form) }}
+                {% endif %}
+
+                <h1 class="pull-left">{{ user.name | capitalize }}'s userpage.</h1>
+
+                {% if app.user.id == app.request.get('id')%}
+                  <br><br><br><br>
+                  <h4 class="pull-left">In here you can manage your products and your account information</h4>
+                {% endif %}
+
             </div>
         </div>
+        <br><br><br>
         <div class="row">
+            <!-- PRODUCT ITEM -->
+            {% for product in products %}
+
             <div class="col-md-3">
-                <div class="panel price panel-grey">
+                <div class="panel panel-default">
                     <div class="panel-heading arrow_box text-center">
-                        <h3>{{ user.name }}</h3>
+                        <a href="{{ path('product_show', { 'id': product.id }) }}"><h4>{{ product.name }}</h4></a>
                     </div>
-                    <ul class="list-group list-group-flush text-center">
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.name }}</li>
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.surname }}</li>
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ user.email }}</li>
-                    </ul>
+
+                    <div class="panel-body-products panel-body text-center">
+                        <ul class="list-group list-group-flush text-center">
+                            {% if product.images|length > 0 %}
+                                <a href="{{ path('product_show', { 'id': product.id }) }}"><img src="{{ asset('uploads/' ~ product.images[0].path) }}" height="100" width="130"></a>
+                            {% endif %}
+                            <li class="list-group-item"><i class="icon-ok text-success"></i> Owner: {{ product.user }}</li>
+                            {% if product.categories|length > 0 %}
+                                <li class="list-group-item">
+                                    {% for category in product.categories %}
+                                        <span class="product-category">
+                                            {{ category.name }}
+                                        </span>
+                                    {% endfor %}
+                                </li>
+                            {% endif %}
+                            <li class="list-group-item"><i class=""></i> Available: {% if product.available %}Yes{% else %}No{% endif %}</li>
+                        </ul>
+                    </div>
+
+                    <div class="panel-footer text-center">
+                        <a class="btn btn-primary" href="{{ path('product_show', { 'id': product.id }) }}">Check it</a>
+                    </div>
                 </div>
             </div>
+
+            {% endfor %}
+            <!-- /PRODUCT ITEM -->
 
         </div>
     </div>

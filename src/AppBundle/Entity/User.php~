@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
+ * @UniqueEntity("email")
  */
 class User implements UserInterface
 {
@@ -31,7 +32,8 @@ class User implements UserInterface
     private $surname;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, unique=true)
+     * @Assert\Email()
      */
     private $email;
 
