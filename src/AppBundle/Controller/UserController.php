@@ -43,10 +43,10 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
-        
+
         $img = new Image();
         $user->getImages()->add($img);
-        
+
         $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
 
@@ -79,9 +79,10 @@ class UserController extends Controller
     public function showAction(User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
-
+        $products = $user->getProducts();
         return $this->render('user/show.html.twig', array(
             'user' => $user,
+            'products' => $products,
             'delete_form' => $deleteForm->createView(),
         ));
     }

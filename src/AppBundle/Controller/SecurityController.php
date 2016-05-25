@@ -21,6 +21,9 @@ class SecurityController extends Controller
       // get the login error if there is one
       $error = $authenticationUtils->getLastAuthenticationError();
 
+      if($error){
+        $request->getSession()->getFlashBag()->add('error', 'Invalid Credentials, please try again.');
+      }
       // last username entered by the user
       $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -32,23 +35,6 @@ class SecurityController extends Controller
               'error'         => $error,
           )
       );
-    }
-
-    /**
-     * Finds and displays User information.
-     *
-     * @Route("/userpage", name="userpage")
-     * @Method("GET")
-     */
-    public function userpageAction()
-    {
-        $user = $this->getUser();
-        $products = $user->getProducts();
-
-        return $this->render('user/userpage.html.twig', array(
-            'user' => $user,
-            'products' => $products,
-        ));
     }
 }
 ?>
