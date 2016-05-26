@@ -4,31 +4,54 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h1 class="pull-left">Category view</h1>
-                <a href="{{ path('category_index') }}" class="btn btn-primary pull-right" role="button">Back to category list</a>
-                <a href="{{ path('category_edit', { 'id': category.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
-                
-                {{ form_start(delete_form) }}
-                    <input class="btn btn-primary pull-right" type="submit" value="Delete">
-                {{ form_end(delete_form) }}                
+            <div class="header-page col-md-12">
+                <h1 class="pull-left">{{ category.name|capitalize }}</h1>
+                <a href="{{ path('category_index') }}" class="btn btn-primary pull-right" role="button">Back to categories list</a>                
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('category_edit', { 'id': category.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
+                    {{ form_start(delete_form) }}
+                        <input class="btn btn-primary pull-right" type="submit" value="Delete">
+                    {{ form_end(delete_form) }}                
+                {% endif %}
             </div>
         </div>
         <div class="row">
-            <!-- category ITEM -->
-            <div class="col-md-3">
-                <div class="panel price panel-grey">
-                    <div class="panel-heading arrow_box text-center">
-                        <h3>{{ category.name }}</h3>
+            {% if products|length > 0 %}
+                {% for product in products %}
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading arrow_box text-center">
+                            <a href="{{ path('product_show', { 'id': product.id }) }}"><h4>{{ product.name }}</h4></a>
+                        </div>
+
+                        <div class="panel-body-products panel-body text-center">
+                            <ul class="list-group list-group-flush text-center">
+                                {% if product.images|length > 0 %}
+                                    <a href="{{ path('product_show', { 'id': product.id }) }}"><img src="{{ asset('uploads/' ~ product.images[0].path) }}" height="100" width="130"></a>
+                                {% endif %}
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> Owner: {{ product.user }}</li>
+                                {% if product.categories|length > 0 %}
+                                    <li class="list-group-item">
+                                        {% for category in product.categories %}
+                                            <a href="{{ path('category_show', {'id' : category.id}) }}" class="product-category">
+                                                {{ category.name }}
+                                            </a>
+                                        {% endfor %}
+                                    </li>
+                                {% endif %}
+                                <li class="list-group-item"><i class=""></i> Available: {% if product.available %}Yes{% else %}No{% endif %}</li>
+                            </ul>
+                        </div>
+
+                        <div class="panel-footer text-center">
+                            <a class="btn btn-primary" href="{{ path('product_show', { 'id': product.id }) }}">Check it</a>
+                        </div>
                     </div>
-                    <ul class="list-group list-group-flush text-center">
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ category.name }}</li>
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('category_edit', { 'id': category.id }) }}">edit</a></li>
-                    </ul>
                 </div>
-            </div>
-            <!-- /category ITEM -->
-        
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12"><h1>No products found for this category</h1></div>                
+            {% endif %}
         </div>
     </div>
 {% endblock %}

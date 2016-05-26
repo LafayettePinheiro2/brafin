@@ -15,9 +15,9 @@
                 {% if product.categories|length > 0 %}
                     <li class="list-group-item">
                         {% for category in product.categories %}
-                            <span class="product-category">
+                            <a href="{{ path('category_show', {'id' : category.id}) }}" class="product-category">
                                 {{ category.name }}
-                            </span>
+                            </a>
                         {% endfor %}
                     </li>
                 {% endif %}

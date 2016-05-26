@@ -3,32 +3,26 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h1 class="pull-left">Category list</h1>
-                <a href="{{ path('category_new') }}" class="btn btn-primary pull-right" role="button">Register a new Category</a>
+            <div class="header-page col-md-12">
+                <h1 class="pull-left">Categories</h1>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('category_new') }}" class="btn btn-primary pull-right" role="button">Register a new Category</a>
+                {% endif %}
             </div>
         </div>
+            
         <div class="row">
             {% for category in categories %}
             <!-- CATEGORY ITEM -->
             <div class="col-md-3">
-                <div class="panel price panel-grey">
-                    <div class="panel-heading arrow_box text-center">
+                <div class="panel panel-default">
+                    <div class="panel-heading"></div>
+                    <a href="{{ path('category_show', {'id' : category.id}) }}" class="category-panel-heading text-center">
                         <h3>{{ category.name }}</h3>
-                    </div>
-                    <div class="panel-body text-center">
-    {#                  <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>#}
-                    </div>
-                    <ul class="list-group list-group-flush text-center">
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> {{ category.name }}</li>
-                        <li class="list-group-item"><i class="icon-ok text-success"></i> <a href="{{ path('category_edit', { 'id': category.id }) }}">edit</a></li>
-                    </ul>
-                    <div class="panel-footer">
-                        <a class="btn btn-lg btn-block btn-primary" href="{{ path('category_show', { 'id': category.id }) }}">See IT!</a>
-                    </div>
+                    </a>
+                    <div class="panel-footer"></div>
                 </div>
             </div>
-
             <!-- /CATEGORY ITEM -->
             {% endfor %}
 

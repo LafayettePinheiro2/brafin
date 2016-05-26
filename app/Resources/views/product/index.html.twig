@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="header-page col-md-12">
-                <h1 class="pull-left">Product list</h1>
+                <h1 class="pull-left">Products list</h1>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                   <a href="{{ path('product_new') }}" class="btn btn-primary pull-right" role="button">Register a new Product</a>
                 {% endif %}
@@ -29,9 +29,9 @@
                             {% if product.categories|length > 0 %}
                                 <li class="list-group-item">
                                     {% for category in product.categories %}
-                                        <span class="product-category">
+                                        <a href="{{ path('category_show', {'id' : category.id}) }}" class="product-category">
                                             {{ category.name }}
-                                        </span>
+                                        </a>
                                     {% endfor %}
                                 </li>
                             {% endif %}

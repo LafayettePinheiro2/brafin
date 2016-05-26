@@ -26,6 +26,19 @@ body{
 
 /*END HOMEPAGE*/
 
+
+/*CATEGORIES PAGE*/
+
+
+.category-panel-heading {
+    cursor: pointer;
+    padding: 10px 15px;
+    color: black;
+}
+
+/*END CATEGORIES PAGE*/
+
+
 .form-user {
     margin-left: -8%;
 }
@@ -54,6 +67,15 @@ body{
     margin-right: 2px;
     padding: 5px 4px;
     border-radius: 6px;
+}
+
+.product-category:hover {
+    color: #265a88;
+    background-image: none;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #265a88;
+    text-decoration: none;
 }
 
 .panel-body-products {
@@ -145,6 +167,7 @@ body{
 }
 
 /*END SIDEBAR*/
+
 
 
 /*FOOTER*/
