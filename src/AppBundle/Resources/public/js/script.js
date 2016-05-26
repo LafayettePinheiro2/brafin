@@ -31,21 +31,42 @@ $('.userId').on('click', function(e){
 $('.category-list').on('click', function(e){
     e.preventDefault();
     
-    var categoryId = {'categoryId' : $(this).attr('data-value')};
+    var clickedLink = $(this);    
+    var categoryId = {'categoryId' : clickedLink.attr('data-value')};
     
     $.ajax({
         type: "POST",
-        url: $(this).attr('href'),
+        url: clickedLink.attr('href'),
         data: categoryId,
+        async: false,
         success: function(response, dataType)
         {
-            $('.homepage-products-content').html(response.content);
+            $('.homepage-products-content').html(response.content);  
         },
 
         error: function(XMLHttpRequest, textStatus, errorThrown)
         {
             $('.homepage-products-content').html('Error, please try again.');
-//            alert('Error : ' + errorThrown);
         }
     });
+});
+
+
+$('#search-sidebar').on('change paste keyup', function(){
+    if($(this).val().length >= 3 || $(this).val().length === 0){
+        var search = {'search' : $(this).val()};
+        $.ajax({
+            url: $(this).attr('data-href'),
+            data: search,
+            success: function(response, dataType)
+            {
+                $('.homepage-products-content').html(response.content);
+            },
+
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                $('.homepage-products-content').html('Error, please try again.');
+            }
+        });
+    }  
 });

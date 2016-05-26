@@ -42,7 +42,7 @@
             <!--SEARCH-->
             <form method="get" action="{{ path('homepage') }}" class="navbar-form navbar-right" role="search">
                 <div class="form-group">
-                    <input type="text" value="" name="search" class="form-control" placeholder="Search">
+                    <input type="text" value="{{ app.request.query.get('search') }}" name="search" class="form-control" placeholder="Search">
                 </div>
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>

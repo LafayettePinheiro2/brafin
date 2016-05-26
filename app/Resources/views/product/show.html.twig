@@ -8,13 +8,14 @@
                 <h1 class="pull-left">{{ product.name }}</h1>
 
                 <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to products list</a>
+                {% if app.user.id is defined %}
+                    {% if app.user.id == product.getUser().id or is_granted('ROLE_ADMIN') %}
+                      <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
 
-                {% if app.user.id == product.getUser().id or is_granted('ROLE_ADMIN') %}
-                  <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
-
-                  {{ form_start(delete_form) }}
-                      <input class="btn btn-primary pull-right" type="submit" value="Delete">
-                  {{ form_end(delete_form) }}
+                      {{ form_start(delete_form) }}
+                          <input class="btn btn-primary pull-right" type="submit" value="Delete">
+                      {{ form_end(delete_form) }}
+                    {% endif %}
                 {% endif %}
 
             </div>

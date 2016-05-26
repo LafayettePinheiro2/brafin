@@ -7,7 +7,7 @@
         <div class="header-page col-md-12">
             <h1 class="pull-left">Welcome to brafin</h1>
             {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-              <a href="{{ path('user_new') }}" class="btn btn-primary pull-right" role="button">Register now!</a>
+                <a href="{{ path('user_new') }}" class="btn btn-primary pull-right" role="button">Register now!</a>
             {% endif %}
         </div>
     </div>
@@ -20,16 +20,17 @@
                     <li><br /></li>
                     <li><strong>Categories</strong></li>
                     <li><br /></li>
+                    <li><a data-value="" class="category-list" href="{{ path('homepage') }}">All categories</a></li>
                     {% for category in categories %}
                         <li><a  data-value="{{ category.id }}" class="category-list" href="{{ path('homepage') }}">{{ category.name }}</a></li>
                     {% endfor %}
                     <li><br /></li>
                     <li><br /></li>
-                    <li><a href="#"><strong>Most recently added</strong></a></li>
+{#                    <li><a href="#"><strong>Most recently added</strong></a></li>#}
                     <li><br /></li>
 
                     <div class="input-group text-center" >
-                      <input type="text" class="form-control" placeholder="Search for...">
+                        <input name="search" data-href="{{ path('homepage') }}" id="search-sidebar" type="text" class="form-control" placeholder="Search for..." />
                     </div><!-- /input-group -->
 
                     <li><br /></li>

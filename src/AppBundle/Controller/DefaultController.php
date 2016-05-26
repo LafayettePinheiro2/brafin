@@ -18,12 +18,24 @@ class DefaultController extends Controller
     {        
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository('AppBundle:Product')->findAll();
-        $categories = $em->getRepository('AppBundle:Category')->findAll();
+        $categories = $em->getRepository('AppBundle:Category')->findAll();        
         
-        if(null !== $request->request->get('categoryId')){
+        //filtering by categories
+        if(null !== $request->request->get('categoryId') && "" != $request->request->get('categoryId')){
             $categoryId = $request->request->get('categoryId');
             $category = $em->getRepository('AppBundle:Category')->find($categoryId);
             $products = $category->getProducts();
+        }
+        
+        //filtering by search
+        if(null !== $request->query->get('search') && "" != $request->query->get('search')){
+            $search = $request->query->get('search');
+            
+            foreach ($products as $key => $product) {
+                if(false === strpos(strtolower($product->getName()), strtolower($search))){
+                    unset($products[$key]);
+                }
+            }
         }
         
         if($request->isXmlHttpRequest()) {

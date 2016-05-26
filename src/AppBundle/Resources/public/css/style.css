@@ -26,6 +26,7 @@ body{
 
 /*END HOMEPAGE*/
 
+
 .form-user {
     margin-left: -8%;
 }
@@ -139,7 +140,13 @@ body{
     background-color: #dedede;
 }
 
+
+.nav-sidebar .category-active {
+    background-color: #dedede;
+}
+
 /*END SIDEBAR*/
+
 
 
 /*FOOTER*/
