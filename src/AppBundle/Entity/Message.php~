@@ -23,16 +23,10 @@ class Message
     private $text;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="messagesSent")
-     * @ORM\JoinColumn(name="sender_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Conversation", inversedBy="messages")
+     * @ORM\JoinColumn(name="conversation_id", referencedColumnName="id")
      */
-    private $userSender;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="messagesReceived")
-     * @ORM\JoinColumn(name="receiver_id", referencedColumnName="id")
-     */
-    private $userReceiver;
+    private $conversation;
 
     /**
      * @ORM\Column(type="boolean", name="read", options={"default": false})
@@ -102,54 +96,6 @@ class Message
     }
 
     /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return Message
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Set product
-     *
-     * @param \AppBundle\Entity\Product $product
-     *
-     * @return Message
-     */
-    public function setProduct(\AppBundle\Entity\Product $product = null)
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    /**
-     * Get product
-     *
-     * @return \AppBundle\Entity\Product
-     */
-    public function getProduct()
-    {
-        return $this->product;
-    }
-
-    /**
      * Set read
      *
      * @param boolean $read
@@ -173,51 +119,4 @@ class Message
         return $this->read;
     }
 
-    /**
-     * Set userSender
-     *
-     * @param \AppBundle\Entity\User $userSender
-     *
-     * @return Message
-     */
-    public function setUserSender(\AppBundle\Entity\User $userSender = null)
-    {
-        $this->userSender = $userSender;
-
-        return $this;
-    }
-
-    /**
-     * Get userSender
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUserSender()
-    {
-        return $this->userSender;
-    }
-
-    /**
-     * Set userReceiver
-     *
-     * @param \AppBundle\Entity\User $userReceiver
-     *
-     * @return Message
-     */
-    public function setUserReceiver(\AppBundle\Entity\User $userReceiver = null)
-    {
-        $this->userReceiver = $userReceiver;
-
-        return $this;
-    }
-
-    /**
-     * Get userReceiver
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUserReceiver()
-    {
-        return $this->userReceiver;
-    }
 }

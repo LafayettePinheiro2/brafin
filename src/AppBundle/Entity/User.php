@@ -59,14 +59,10 @@ class User implements UserInterface
     private $products;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="userSender")
+     * @ORM\ManyToMany(targetEntity="Conversation", inversedBy="users")
+     * @ORM\JoinTable(name="users_conversation")
      */
-    private $messagesSent;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="userReceiver")
-     */
-    private $messagesReceived;
+    private $conversations;
 
     /**
      * @ORM\OneToMany(targetEntity="Image", mappedBy="user", cascade={"persist", "remove"})
@@ -80,8 +76,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->messagesSent = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->messagesReceived = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->$conversations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -327,71 +322,39 @@ class User implements UserInterface
     {
     }
 
+
+
     /**
-     * Add messagesSent
+     * Add conversation
      *
-     * @param \AppBundle\Entity\Message $messagesSent
+     * @param \AppBundle\Entity\Conversation $conversation
      *
      * @return User
      */
-    public function addMessagesSent(\AppBundle\Entity\Message $messagesSent)
+    public function addConversation(\AppBundle\Entity\Conversation $conversation)
     {
-        $this->messagesSent[] = $messagesSent;
+        $this->conversations[] = $conversation;
 
         return $this;
     }
 
     /**
-     * Remove messagesSent
+     * Remove conversation
      *
-     * @param \AppBundle\Entity\Message $messagesSent
+     * @param \AppBundle\Entity\Conversation $conversation
      */
-    public function removeMessagesSent(\AppBundle\Entity\Message $messagesSent)
+    public function removeConversation(\AppBundle\Entity\Conversation $conversation)
     {
-        $this->messagesSent->removeElement($messagesSent);
+        $this->conversations->removeElement($conversation);
     }
 
     /**
-     * Get messagesSent
+     * Get conversations
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getMessagesSent()
+    public function getConversations()
     {
-        return $this->messagesSent;
-    }
-
-    /**
-     * Add messagesReceived
-     *
-     * @param \AppBundle\Entity\Message $messagesReceived
-     *
-     * @return User
-     */
-    public function addMessagesReceived(\AppBundle\Entity\Message $messagesReceived)
-    {
-        $this->messagesReceived[] = $messagesReceived;
-
-        return $this;
-    }
-
-    /**
-     * Remove messagesReceived
-     *
-     * @param \AppBundle\Entity\Message $messagesReceived
-     */
-    public function removeMessagesReceived(\AppBundle\Entity\Message $messagesReceived)
-    {
-        $this->messagesReceived->removeElement($messagesReceived);
-    }
-
-    /**
-     * Get messagesReceived
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMessagesReceived()
-    {
-        return $this->messagesReceived;
+        return $this->conversations;
     }
 }
