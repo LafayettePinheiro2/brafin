@@ -12,20 +12,46 @@ body{
 }
 
 
-/*HOMEPAGE*/ 
+/*HOMEPAGE*/
 
 .homepage-sidebar-content {
-    width: 25%; 
+    width: 25%;
     float: left;
 }
 
 .homepage-products-content {
-    width: 75%; 
+    width: 75%;
     float: right;
+}
+
+.category-list a:hover {
+    color: red;
 }
 
 /*END HOMEPAGE*/
 
+/*MESSAGE PAGE*/
+
+.message-sidebar {
+  width: 25%;
+  float: left;
+}
+
+.message-content {
+  width: 75%;
+  float: right;
+}
+
+.verticalDevider {
+     border-left:1px solid #38546d;
+     border-right:1px solid #16222c;
+     height:80px;
+     position:absolute;
+     right:249px;
+     top:10px;
+}
+
+/*END MESSAGE PAGE*/
 
 /*CATEGORIES PAGE*/
 
@@ -57,7 +83,7 @@ body{
 }
 
 .inputfile + label {
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .product-category {

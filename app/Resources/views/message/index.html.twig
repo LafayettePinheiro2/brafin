@@ -1,45 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+<div class="container">
     <h1>Message list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Text</th>
-                <th>Read</th>
-                <th>Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for message in messages %}
-            <tr>
-                <td><a href="{{ path('message_show', { 'id': message.id }) }}">{{ message.id }}</a></td>
-                <td>{{ message.title }}</td>
-                <td>{{ message.text }}</td>
-                <td>{% if message.read %}Yes{% else %}No{% endif %}</td>
-                <td>{% if message.date %}{{ message.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('message_show', { 'id': message.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('message_edit', { 'id': message.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+      <div class="message-sidebar">
+        <div class="sidebar col-md-12">
+          <ul class="nav nav-sidebar" style="padding-left: 15px;" >
+              <h4>Messagebox</h4>
 
-    <ul>
-        <li>
-            <a href="{{ path('message_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+              {% for user in users %}
+                  <li><a  data-value="" href="{{ path('message_index') }}">{{ user | capitalize}}</a></li>
+              {% endfor %}
+
+              <li><br /></li>
+              <li><br /></li>
+              <li><br /></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="message-content">
+        {% include 'message/show.html.twig' %}
+      </div>
+
+      
+    </div>
+
+</div>
 {% endblock %}

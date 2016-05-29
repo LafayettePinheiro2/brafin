@@ -7,6 +7,7 @@
             <div class="header-page col-md-12">
                 <a href="{{ path('user_index') }}" class="btn btn-primary pull-right" role="button">Back to user list</a>
                 {% if app.user.id == app.request.get('id') or is_granted('ROLE_ADMIN') %}
+                  <a href="{{ path('message_index') }}" class="btn btn-primary pull-right" role="button">Messages</a>
                   <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
                 {% endif %}
 

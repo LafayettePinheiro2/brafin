@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Message;
+use AppBundle\Entity\User;
 use AppBundle\Form\MessageType;
 
 /**
@@ -22,14 +23,38 @@ class MessageController extends Controller
      * @Route("/", name="message_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $messages = $em->getRepository('AppBundle:Message')->findAll();
+        $messages = $this->getUser()->getMessagesReceived();
+
+        $uniqueUsers = array();
+
+        foreach($messages as &$message){
+          if(!in_array($message->getUserSender(), $uniqueUsers)){ array_push($uniqueUsers, $message->getUserSender()); }
+        }
+
+        $message = new Message();
+        $form = $this->createForm('AppBundle\Form\MessageType', $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+
+            return $this->redirectToRoute('message_index');
+        }
+
+        if($request->isXmlHttpRequest()){
+
+        }
 
         return $this->render('message/index.html.twig', array(
             'messages' => $messages,
+            'users' => $uniqueUsers,
+            'form' => $form->createView(),
         ));
     }
 

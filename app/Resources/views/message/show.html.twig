@@ -1,44 +1,26 @@
-{% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Message</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ message.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ message.title }}</td>
-            </tr>
-            <tr>
-                <th>Text</th>
-                <td>{{ message.text }}</td>
-            </tr>
-            <tr>
-                <th>Read</th>
-                <td>{% if message.read %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{% if message.date %}{{ message.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+{% for message in messages %}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {{ message.text }}
+      </div>
+      <div class="panel-footer">{{ message.date|date('H:i:s    m-d') }}</div>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('message_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('message_edit', { 'id': message.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+{% endfor %}
+
+<div class="col-md-12">
+  {{ form_start(form) }}
+
+    {{ form_label(form.text, 'Respond:', {'label_attr': {'class': ''} }) }}
+    {{ form_widget(form.text, {'attr': {'class': 'form-control', 'rows':'6'} }) }}
+    <br><br>
+    <div class="col-md-12 form-group">
+        <button type="submit" class="btn btn-group-justified">Send</button>
+    </div>
+
+    {{ form_rest(form) }}
+
+  {{ form_end(form) }}
+</div>
