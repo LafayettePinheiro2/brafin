@@ -5,20 +5,20 @@
         <div class="row">
             <div class="header-page col-md-12">
                 <h1 class="pull-left">Edit product</h1>
-                <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to products list</a>                
+                <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to products list</a>
                 {{ form_start(delete_form) }}
-                    <input class="btn btn-primary pull-right" type="submit" value="Delete">
+                    <input class="btn btn-danger pull-right" type="submit" value="Delete">
                 {{ form_end(delete_form) }}
             </div>
         </div>
     </div>
-            
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 {{ form_start(image_form, {'action' : path('image_new', { 'product-id': product.id })} ) }}
                 {{ form_widget(image_form) }}
-                
+
                 <div class="form-group">
                     <button type="submit" class="product-image-button btn btn-primary">Add Image</button>
                 </div>
@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-            
+
     <div class="container">
         <div class="row">
             <div class="col-md-12 product-images-wraper">
@@ -39,11 +39,11 @@
             </div>
         </div>
     </div>
-            
+
     <div class="container">
         <div class="row">
             {{ form_start(edit_form, { 'attr': { 'class': '' } }) }}
-            
+
                 <div class="col-md-5 form-group">
                     {{ form_label(edit_form.name, 'Product Name', {'label_attr': {'class': ''} }) }}
                     {{ form_errors(edit_form.name) }}
@@ -62,22 +62,22 @@
                                 {{ form_widget(category, {'attr': {'class': 'categories-product-checkbox'} }) }}
                         {% endfor %}
                 </div>
-                
+
                 <div class="col-md-5 form-group">
                     {{ form_label(edit_form.user, 'User', {'label_attr': {'class': ''} }) }}
                     {{ form_errors(edit_form.user) }}
                     {{ form_widget(edit_form.user, {'attr': {'class': 'form-control', 'rows':'10'} }) }}
                 </div>
-                
+
                 {{ form_row(edit_form._token) }}
                 {{ form_row(edit_form.available) }}
-                
+
                 <div class="col-md-12 form-group">
                     <button type="submit" class="btn btn-primary">Update product</button>
                 </div>
-                
+
             {{ form_end(edit_form, {'render_rest': false}) }}
         </div>
     </div>
-    
+
 {% endblock %}

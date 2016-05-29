@@ -13,7 +13,7 @@
                       <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
 
                       {{ form_start(delete_form) }}
-                          <input class="btn btn-primary pull-right" type="submit" value="Delete">
+                          <input class="btn btn-danger pull-right" type="submit" value="Delete">
                       {{ form_end(delete_form) }}
                     {% endif %}
                 {% endif %}

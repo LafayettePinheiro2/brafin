@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    
+
     <div class="container">
         <div class="row">
             <div class="header-page col-md-12">
                 <h1 class="pull-left">{{ category.name|capitalize }}</h1>
-                <a href="{{ path('category_index') }}" class="btn btn-primary pull-right" role="button">Back to categories list</a>                
+                <a href="{{ path('category_index') }}" class="btn btn-primary pull-right" role="button">Back to categories list</a>
                 {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('category_edit', { 'id': category.id }) }}" class="btn btn-primary pull-right" role="button">Edit</a>
                     {{ form_start(delete_form) }}
-                        <input class="btn btn-primary pull-right" type="submit" value="Delete">
-                    {{ form_end(delete_form) }}                
+                        <input class="btn btn-danger pull-right" type="submit" value="Delete">
+                    {{ form_end(delete_form) }}
                 {% endif %}
             </div>
         </div>
@@ -50,7 +50,7 @@
                 </div>
                 {% endfor %}
             {% else %}
-                <div class="col-md-12"><h1>No products found for this category</h1></div>                
+                <div class="col-md-12"><h1>No products found for this category</h1></div>
             {% endif %}
         </div>
     </div>

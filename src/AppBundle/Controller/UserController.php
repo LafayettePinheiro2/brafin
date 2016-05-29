@@ -42,7 +42,7 @@ class UserController extends Controller
      */
      public function makeAdmin(User $user){
        $user->setRoles('ROLE_ADMIN');
-       
+
        $em = $this->getDoctrine()->getManager();
        $em->persist($user);
        $em->flush();
@@ -88,7 +88,7 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("/{id}", name="user_show")
+     * @Route("/{id}/", name="user_show")
      * @Method("GET")
      */
     public function showAction(User $user)
