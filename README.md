@@ -10,16 +10,16 @@ O QUE FALTA FAZER - fazer logo
     * popular banco de dados direito no servidor
 
 
-    * ação de usar entrar em contato com user
+    * ação de usar entrar em contato com user - thiago
 
 
     * melhorar página index, explicando melhor como funciona o site antes de mostrar os produtos.
 
     
-    * botao - doar item - fazer setar availability para 0
+    * botao - doar item - fazer setar availability para 0 - thiago
 
 
-    * arrumar pra só poder pegar um produto quando já tiver postado algum
+    * arrumar pra só poder pegar um produto quando já tiver postado algum - thiago
 
 
     * testar usar a aplicação toda quando tiver completa
