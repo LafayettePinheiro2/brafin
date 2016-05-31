@@ -12,17 +12,15 @@
                 {% endif %}
 
                 {% if is_granted('ROLE_ADMIN')%}
-                  {{ form_start(delete_form) }}
-                      <input class="btn btn-danger pull-right" type="submit" value="Delete">
-                  {{ form_end(delete_form) }}
+                    {{ form_start(delete_form) }}
+                        <input class="btn btn-danger pull-right" type="submit" value="Delete">
+                    {{ form_end(delete_form) }}
                 {% endif %}
-
 
                 <h1 class="pull-left">{{ user.name | capitalize }}'s userpage.</h1>
 
                 {% if app.user.id is defined and app.user.id == app.request.get('id')%}
-                    <br><br><br><br>
-                    <h4 class="pull-left">In here you can manage your products and your account information</h4>
+                    <h4 class="pull-left">Here you can manage your products and your account information</h4>
                 {% endif %}
 
             </div>
@@ -65,7 +63,7 @@
 
                 {% endfor %}
             {% else %}                
-                <h3 style="margin-top: 100px;" class="text-center">No products for this user</h3>
+                <h3 style="margin-top: 100px;" class="text-center">No products were posted by this user</h3>
             {% endif %}
 
         </div>
