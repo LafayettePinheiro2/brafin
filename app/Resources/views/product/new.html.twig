@@ -6,15 +6,15 @@
         <div class="row">
             <div class="header-page col-md-12">
                 <h1 class="pull-left">New product</h1>
-                <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to products list</a>                
+                <a href="{{ path('product_index') }}" class="btn btn-primary pull-right" role="button">Back to products list</a>
             </div>
         </div>
     </div>
-    
+
     <div class="container">
         <div class="row">
             {{ form_start(form, { 'attr': { 'class': '' } }) }}
-            
+
                 <div class="col-md-5 form-group">
                     {{ form_label(form.name, 'Product Name', {'label_attr': {'class': ''} }) }}
                     {{ form_errors(form.name) }}
@@ -33,7 +33,7 @@
                                 {{ form_widget(category, {'attr': {'class': 'categories-product-checkbox'} }) }}
                         {% endfor %}
                 </div>
-                
+
                 <div class="col-md-8 form-group">
                     {% for image in form.images %}
                         {{ form_label(image.file, 'Image', {'label_attr': {'class': ''} }) }}
@@ -45,10 +45,10 @@
                 <div class="col-md-12 form-group">
                     <button type="submit" class="btn btn-primary">Register a new product</button>
                 </div>
-                
+
                 {{ form_rest(form) }}
             {{ form_end(form, {'render_rest': false}) }}
         </div>
     </div>
-    
+
 {% endblock %}

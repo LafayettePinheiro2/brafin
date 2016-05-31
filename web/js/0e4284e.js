@@ -57,27 +57,7 @@ $('.conversation-list').on('click', function(e){
     var conversationId = {'conversationId' : $(this).attr('data-value')};
 
     $.ajax({
-        type: "POST",
-        url: $(this).attr('href'),
-        data: conversationId,
-        async: false,
-        success: function(response, dataType)
-        {
-          $('.message-content').html(response.content);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown)
-        {
-            $('.message-content').html('Error, please try again.');
-        }
-    });
-});
-
-$('#msg-button').on('click', function(){
-
-    var conversationId = '{{ id }}';
-    console.log('asdasd');
-    $.ajax({
-        type: "POST",
+        type: "GET",
         url: $(this).attr('href'),
         data: conversationId,
         async: false,

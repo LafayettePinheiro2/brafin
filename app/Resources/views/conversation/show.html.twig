@@ -17,7 +17,7 @@
     {% endfor %}
 
     <div class="col-md-12">
-      {{ form_start(form, {'action' : path('conversation_msg_new', { 'conversation-id': id })}) }}
+      {{ form_start(form, {'action' : path('conversation_msg_new', { 'conversationId': id })}) }}
 
         {{ form_label(form.text, 'Respond:', {'label_attr': {'class': ''} }) }}
         {{ form_widget(form.text, {'attr': {'class': 'form-control', 'rows':'6'} }) }}

@@ -33,6 +33,9 @@ class UserType extends AbstractType
             ->add('roles', HiddenType::class, array(
                 'data' => 'ROLE_USER',
             ))
+            ->add('credit', HiddenType::class, array(
+                'data' => 0,
+            ))
             ; 
     }
 

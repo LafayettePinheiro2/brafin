@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\User;
 use AppBundle\Entity\Image;
 use AppBundle\Form\ProductType;
 
@@ -43,11 +44,13 @@ class ProductController extends Controller
     public function newAction(Request $request)
     {
         $product = new Product();
-        
+        $user = new User();
+
         $img = new Image();
         $product->getImages()->add($img);
-        
-        
+        $user = $this->getUser();
+        $availableCredit = $user->getCredit();
+
         $form = $this->createForm('AppBundle\Form\ProductType', $product);
         $form->handleRequest($request);
 
@@ -59,9 +62,12 @@ class ProductController extends Controller
             $count = count($images);
             $img = $images[$count-1];
             $img->setProduct($product);
-            
+            $user->setCredit($availableCredit+1);
+            $product->setUser($user);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
+            $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('product_show', array('id' => $product->getId()));
@@ -100,13 +106,15 @@ class ProductController extends Controller
         $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
         $editForm->handleRequest($request);
-        
+
         $image = new Image();
         $imageForm = $this->createForm('AppBundle\Form\ImageType', $image);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $image->setProduct($product);
             $em->persist($product);
+            $em->persist($image);
             $em->flush();
 
             return $this->redirectToRoute('product_show', array('id' => $product->getId()));
@@ -119,8 +127,8 @@ class ProductController extends Controller
             'image_form' => $imageForm->createView(),
         ));
     }
-    
-    
+
+
     /**
      * Remove an image from the product
      *
@@ -130,15 +138,15 @@ class ProductController extends Controller
     public function removeImageAction(Request $request, Product $product)
     {
         $imageId  = $request->query->get('image-id');
-        
+
         $em = $this->getDoctrine()->getManager();
         $image = $em->getRepository('AppBundle:Image')->find($imageId);
-            
+
         $product->removeImage($image);
         $em->persist($product);
         $em->remove($image);
         $em->flush();
-        
+
         $request->getSession()
             ->getFlashBag()
             ->add('success', 'Image removed with success')
@@ -146,7 +154,7 @@ class ProductController extends Controller
 
         return $this->redirectToRoute('product_edit', array('id' => $product->getId()));
     }
-    
+
 
     /**
      * Deletes a Product entity.

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Conversation;
 use AppBundle\Entity\Message;
+use AppBundle\Entity\User;
 use AppBundle\Form\ConversationType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -27,8 +28,8 @@ class ConversationController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $messages = new \Doctrine\Common\Collections\ArrayCollection();
         $message = new Message();
+        $messages = new \Doctrine\Common\Collections\ArrayCollection();
         $form = $this->createForm('AppBundle\Form\MessageType', $message);
         $conversations = $this->getUser()->getConversations();
 
@@ -39,11 +40,11 @@ class ConversationController extends Controller
 
         //AJAX call
         if($request->isXmlHttpRequest()){
-            $id = $request->request->get('conversationId');
+            $id = $request->query->get('conversationId');
             $content =  $this->renderView('conversation/show.html.twig', array(
                 'messages' => $messages[$id],
-                'form' => $form->createView(),
                 'id' => $id,
+                'form' => $form->createView(),
             ));
 
             $jsonResponse = new JsonResponse();
@@ -51,9 +52,24 @@ class ConversationController extends Controller
             return $jsonResponse;
         }
 
-        return $this->render('conversation/index.html.twig', array(
-            'conversations' => $conversations,
-        ));
+        if(null !== $request->query->get('conversationId')){
+            $id = $request->query->get('conversationId');
+
+            return $this->render('conversation/index.html.twig', array(
+                'messages' => $messages[$request->query->get('conversationId')],
+                'id' => $id,
+                'conversations' => $conversations,
+                'form' => $form->createView(),
+            ));
+        } else {
+            return $this->render('conversation/index.html.twig', array(
+                'messages' => null,
+                'id' => null,
+                'conversations' => $conversations,
+                'form' => $form->createView(),
+            ));
+        }
+
     }
 
     /**
@@ -66,15 +82,27 @@ class ConversationController extends Controller
      public function newMsgAction(Request $request)
      {
          $message = new Message();
+         $user = new User();
+         $users = new \Doctrine\Common\Collections\ArrayCollection();
          $form = $this->createForm('AppBundle\Form\MessageType', $message);
          $form->handleRequest($request);
-         $conversationId = $request->query->get('conversation-id');
-         //New Message
-         if ($form->isSubmitted() && $form->isValid()) {
-             $conversation = $this->getDoctrine()->getRepository('AppBundle:Conversation')->find($conversationId);
-             $author = $this->getUser()->getName();
-             $date = date('H:i:s d-m-Y');
 
+         $date = date('H:i:s d-m-Y');
+         $author = $this->getUser()->getName();
+
+
+         if ($form->isSubmitted() && $form->isValid()) {
+             $conversationId = $request->query->get('conversationId');
+             $conversation = $this->getDoctrine()->getRepository('AppBundle:Conversation')->find($conversationId);
+             $users = $conversation->getUsers();
+
+             foreach($users as $u){
+                 if($u !== $this->getUser()){
+                     $user = $u;
+                 }
+             }
+
+             $user->setNewmsg(true);
              $message->setViewed(false);
              $message->setDate(new \DateTime($date));
              $message->setConversation($conversation);
