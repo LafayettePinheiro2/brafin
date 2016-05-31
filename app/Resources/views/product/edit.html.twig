@@ -62,13 +62,7 @@
                                 {{ form_widget(category, {'attr': {'class': 'categories-product-checkbox'} }) }}
                         {% endfor %}
                 </div>
-
-                <div class="col-md-5 form-group">
-                    {{ form_label(edit_form.user, 'User', {'label_attr': {'class': ''} }) }}
-                    {{ form_errors(edit_form.user) }}
-                    {{ form_widget(edit_form.user, {'attr': {'class': 'form-control', 'rows':'10'} }) }}
-                </div>
-
+                
                 {{ form_row(edit_form._token) }}
                 {{ form_row(edit_form.available) }}
 

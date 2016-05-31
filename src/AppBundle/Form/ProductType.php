@@ -23,10 +23,6 @@ class ProductType extends AbstractType
             ->add('available', HiddenType::class, array(
                 'data' => 1,
             ))
-            ->add('user')
-//            ->add('user', HiddenType::class, array(
-//                'data' => GetActiveUser,
-//            ))  
             ->add('categories', EntityType::class, array(
                 'class' => 'AppBundle:Category',
                 'choice_label' => 'name',

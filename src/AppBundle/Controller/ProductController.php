@@ -48,8 +48,7 @@ class ProductController extends Controller
 
         $img = new Image();
         $product->getImages()->add($img);
-        $id = $this->getUser()->getId();
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
+        $user = $this->getUser();
         $availableCredit = $user->getCredit();
 
         $form = $this->createForm('AppBundle\Form\ProductType', $product);
@@ -62,6 +61,7 @@ class ProductController extends Controller
             $img = $images[$count-1];
             $img->setProduct($product);
             $user->setCredit($availableCredit+1);
+            $product->setUser($user);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
@@ -110,7 +110,9 @@ class ProductController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $image->setProduct($product);
             $em->persist($product);
+            $em->persist($image);
             $em->flush();
 
             return $this->redirectToRoute('product_show', array('id' => $product->getId()));
