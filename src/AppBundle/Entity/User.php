@@ -65,7 +65,7 @@ class User implements UserInterface
     private $conversations;
 
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="user", cascade={"remove"})
      */
     private $images;
 

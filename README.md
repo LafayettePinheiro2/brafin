@@ -7,6 +7,13 @@ O QUE FALTA FAZER - fazer logo
 
   --(fazendo)  * colocar no servidor rodando direito
 
+
+    * colocar imagens no editar user e por info no cadastro
+
+
+    * permitir senha ser em branco no editar user
+
+
     * popular banco de dados direito no servidor
 
 

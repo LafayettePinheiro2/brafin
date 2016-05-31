@@ -1,10 +1,9 @@
-{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% extends 'base.html.twig' %}
 
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="header-page col-md-12">
                 <h1 class="pull-left">Edit user</h1>
                 <a href="{{ path('user_index') }}" class="btn btn-primary pull-right" role="button">Back to the list</a>
                 {{ form_start(delete_form) }}
@@ -16,21 +15,38 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                {{ form_start(edit_form) }}
-                    {{ form_row(edit_form.name) }}
-                    {{ form_row(edit_form.surname) }}
-                    {{ form_row(edit_form.email) }}
-                    {{ form_row(edit_form.plainPassword.first) }}
-                    {{ form_row(edit_form.plainPassword.second) }}
-                     <div class="form-group row">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Edit User</button>
-                        </div>
-                    </div>
-                {{ form_end(edit_form) }}
-
+            {{ form_start(edit_form) }}
+            <div class="col-md-6 form-group">
+                {{ form_label(edit_form.name, 'User Name', {'label_attr': {'class': ''} }) }}
+                {{ form_errors(edit_form.name) }}
+                {{ form_widget(edit_form.name, { 'attr': { 'class': 'form-control' } }) }}
             </div>
+            <div class="col-md-7 form-group">
+                {{ form_label(edit_form.surname, 'User Surname', {'label_attr': {'class': ''} }) }}
+                {{ form_errors(edit_form.surname) }}
+                {{ form_widget(edit_form.surname, { 'attr': { 'class': 'form-control' } }) }}
+            </div>
+            <div class="col-md-7 form-group">
+                {{ form_label(edit_form.email, 'Email', {'label_attr': {'class': ''} }) }}
+                {{ form_errors(edit_form.email) }}
+                {{ form_widget(edit_form.email, { 'attr': { 'class': 'form-control' } }) }}
+            </div>
+            <div class="col-md-7 form-group">
+                {{ form_label(edit_form.plainPassword.first, 'Password', {'label_attr': {'class': ''} }) }}
+                {{ form_errors(edit_form.plainPassword.first) }}
+                {{ form_widget(edit_form.plainPassword.first, { 'attr': { 'class': 'form-control' } }) }}
+            </div>
+            <div class="col-md-7 form-group">
+                {{ form_label(edit_form.plainPassword.second, 'Confirm Password', {'label_attr': {'class': ''} }) }}
+                {{ form_errors(edit_form.plainPassword.second) }}
+                {{ form_widget(edit_form.plainPassword.second, { 'attr': { 'class': 'form-control' } }) }}
+            </div>
+            
+            <div class="col-md-12 form-group">
+                <button type="submit" class="btn btn-primary">Update your profile</button>
+            </div>
+
+            {{ form_end(edit_form) }}
         </div>
     </div>
 {% endblock %}

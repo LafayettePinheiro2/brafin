@@ -24,11 +24,14 @@
                         </ul>
                         <div class="panel-footer">
                             <div class="btn-group" role="group">
-                                {% if is_granted('ROLE_ADMIN')%}
+                                
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') and user.id == app.user.id %}
                                     <a class="btn btn-primary" href="{{ path('user_edit', { 'id': user.id }) }}">Edit User</a>
-                                    <a class="userId btn btn-primary" href="{{ path('make_admin', { 'id': user.id }) }}" type="button">Make Admin</a>
+                                    {% if is_granted('ROLE_ADMIN')%}
+                                        <a class="userId btn btn-primary" href="{{ path('make_admin', { 'id': user.id }) }}" type="button">Make Admin</a>
+                                    {% endif %}
                                 {% endif %}
-                                <a class="btn btn-primary" href="{{ path('user_show', { 'id': user.id }) }}">See user</a>
+                                <a class="btn btn-primary" href="{{ path('user_show', { 'id': user.id }) }}">See profile</a>
                             </div>
                         </div>
                     </div>

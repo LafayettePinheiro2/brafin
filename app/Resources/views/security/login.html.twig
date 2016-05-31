@@ -4,31 +4,28 @@
 {% block body %}
 
     <div class="container">
-      <div class="row">
-          <div class="col-md-12">
-          <h1 class="pull-left">Login with your credentials</h1>
-
-          </div>
-      </div>
-    </div>
-    <div class="container">
-      <br><br><br><br>
-      <div class="row">
-        <div class="col-md-4">
-
-          <form action="{{ path('login') }}" method="post">
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input class="form-control" type="text" id="email" name="_email" value="{{ last_username }}" />
+        <div class="row">
+            <div class="header-page col-md-12">
+                <h1 class="pull-left">Login with your credentials</h1>
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input class="form-control" type="password" id="password" name="_password" />
-            </div>
-            <button type="submit" class="btn btn-default">Login</button>
-          </form>
-
         </div>
-      </div>
+    
+        <div class="row">
+            <div class="col-md-4">
+
+                <form action="{{ path('login') }}" method="post">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" type="text" id="email" name="_email" value="{{ last_username }}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" id="password" name="_password" />
+                    </div>
+                    <button type="submit" class="btn btn-default">Login</button>
+                </form>
+
+            </div>
+        </div>
     </div>
 {% endblock %}

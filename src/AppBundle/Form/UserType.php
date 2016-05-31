@@ -27,16 +27,13 @@ class UserType extends AbstractType
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
-
+                'second_options' => array('label' => 'Repeat Password'),                
+                'required'    => false,
             ))
             ->add('roles', HiddenType::class, array(
                 'data' => 'ROLE_USER',
             ))
-            ->add('images', CollectionType::class, array(
-                'entry_type' => ImageType::class,
-                'allow_add' => true,
-            )); ;
+            ; 
     }
 
     /**

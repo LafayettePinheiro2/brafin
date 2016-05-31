@@ -53,6 +53,8 @@ class ProductController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             
+            $product->setUser($this->getUser());
+            
             $images = $product->getImages();
             $count = count($images);
             $img = $images[$count-1];

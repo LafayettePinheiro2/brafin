@@ -62,9 +62,6 @@ class UserController extends Controller
     {
         $user = new User();
 
-        $img = new Image();
-        $user->getImages()->add($img);
-
         $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
 

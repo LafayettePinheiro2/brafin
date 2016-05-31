@@ -1,6 +1,6 @@
 {% if products|length > 0 %}
     {% for product in products %}
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="panel panel-default">
             <div class="panel-heading arrow_box text-center">
                 <a href="{{ path('product_show', { 'id': product.id }) }}"><h4>{{ product.name }}</h4></a>
