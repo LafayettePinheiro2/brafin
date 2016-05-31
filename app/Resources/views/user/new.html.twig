@@ -1,11 +1,11 @@
-{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{#{% form_theme form 'bootstrap_3_layout.html.twig' %}#}
 {% extends 'base.html.twig' %}
 
 {% block body %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="pull-left">Become a member</h1>
+                <h1 class="header-page pull-left">Become a member</h1>
                 <a href="{{ path('homepage') }}" class="btn btn-primary pull-right" role="button">Back to products list</a>
             </div>
         </div>
@@ -13,23 +13,52 @@
 
     <div class="container">
         <div class="row">
-            <div class="form-user col-md-6">
+{#            <div class="form-user col-md-6">#}
 
             {{ form_start(form) }}
-                {{ form_row(form.name) }}
-                {{ form_row(form.surname) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.plainPassword.first) }}
-                {{ form_row(form.plainPassword.second) }}
+                <div class="col-md-6 form-group">
+                    {{ form_label(form.name, 'User Name', {'label_attr': {'class': ''} }) }}
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name, { 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                <div class="col-md-7 form-group">
+                    {{ form_label(form.surname, 'User Surname', {'label_attr': {'class': ''} }) }}
+                    {{ form_errors(form.surname) }}
+                    {{ form_widget(form.surname, { 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                <div class="col-md-7 form-group">
+                    {{ form_label(form.email, 'Email', {'label_attr': {'class': ''} }) }}
+                    {{ form_errors(form.email) }}
+                    {{ form_widget(form.email, { 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                <div class="col-md-7 form-group">
+                    {{ form_label(form.plainPassword.first, 'Password', {'label_attr': {'class': ''} }) }}
+                    {{ form_errors(form.plainPassword.first) }}
+                    {{ form_widget(form.plainPassword.first, { 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                <div class="col-md-7 form-group">
+                    {{ form_label(form.plainPassword.second, 'Confirm Password', {'label_attr': {'class': ''} }) }}
+                    {{ form_errors(form.plainPassword.second) }}
+                    {{ form_widget(form.plainPassword.second, { 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                
+                <div class="col-md-8 form-group">
+                    {% for image in form.images %}
+                        {{ form_label(image.file, 'Image', {'label_attr': {'class': ''} }) }}
+                        {{ form_errors(image.file) }}
+                        {{ form_widget(image.file, {'attr': {'class': ''} }) }}
+                    {% endfor %}
+                </div>
+                
                 <div class="form-group row">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary">Register a new user</button>
+                        <button type="submit" class="btn btn-primary">Register!</button>
                     </div>
                 </div>
 
             {{ form_end(form) }}
 
-            </div>
+{#            </div>#}
         </div>
     </div>
 {% endblock %}

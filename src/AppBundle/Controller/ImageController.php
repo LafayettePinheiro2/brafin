@@ -46,25 +46,10 @@ class ImageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            
-            if(null !== $request->query->get('product-id')){
-                $productId = $request->query->get('product-id');
-                $product = $em->getRepository('AppBundle:Product')->find($productId);
-                $image->setProduct($product);
-                
-                $request->getSession()
-                    ->getFlashBag()
-                    ->add('success', 'Image added with success')
-                ;
-            }
-            
+            $em = $this->getDoctrine()->getManager();            
             $em->persist($image);
             $em->flush();
-
-            if(null !== $productId){
-                return $this->redirectToRoute('product_edit', array('id' => $productId));
-            } 
+            
             return $this->redirectToRoute('image_show', array('id' => $image->getId()));
         }
 
@@ -73,6 +58,40 @@ class ImageController extends Controller
             'form' => $form->createView(),
         ));
     }
+    
+    
+    /**
+     * Creates a new Image entity for the product.
+     *
+     * @Route("/new-image-product", name="image_product_new")
+     * @Method({"GET", "POST"})
+     */
+    public function newImageProductAction(Request $request)
+    {        
+        $image = new Image();
+        $form = $this->createForm('AppBundle\Form\ImageType', $image);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $productId = $request->query->get('product-id');
+            $product = $em->getRepository('AppBundle:Product')->find($productId);
+            $image->setProduct($product);
+            
+            $em = $this->getDoctrine()->getManager();            
+            $em->persist($image);
+            $em->flush();
+            
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Image added to the product with success')
+            ;
+            
+            return $this->redirectToRoute('product_edit', array('id' => $productId));
+            
+        }
+    }
+    
 
     /**
      * Finds and displays a Image entity.

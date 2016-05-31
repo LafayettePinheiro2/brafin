@@ -1,9 +1,61 @@
+
+Coloca o nome do lado do que ta fazendo pra os 2 não pegar a mesma coisa. E dps apaga quando fizer
+
+O QUE FALTA FAZER - fazer logo
+
+
+
+  --(fazendo)  * colocar no servidor rodando direito
+
+    * popular banco de dados direito no servidor
+
+
+    * ação de usar entrar em contato com user
+
+
+    * melhorar página index, explicando melhor como funciona o site antes de mostrar os produtos.
+
+    
+    * botao - doar item - fazer setar availability para 0
+
+
+    * arrumar pra só poder pegar um produto quando já tiver postado algum
+
+
+    * testar usar a aplicação toda quando tiver completa
+
+
+
+
+O QUE PODE SER MELHORADO - fazer se der tempo
+
+
+    * mostrar opção de ordenar produtos por mais recentes, ou já fazer isso direto
+
+
+    * manipular imagens melhor nos controllers de produto e usuario e usar assert Image
+
+
+    * checar delete de categorias, produtos, imagens, usuario quando tem dependencia
+
+
+
+    * usar mesmo arquivo dos produtos nas 3 páginas que mostra produtos.
+
+
+
 Brafin
 ======
 
 A Symfony project created on May 16, 2016, 6:28 pm.
 
+
+0) Clone the application, copying the files at /brafin directory, or clone from git 
+
+ - git clone https://github.com/LafayettePinheiro2/brafin.git .
+
 To install the application after cloning:
+
 
 1) Give permission to /var directory inside the project
 

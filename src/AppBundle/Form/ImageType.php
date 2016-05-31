@@ -18,7 +18,7 @@ class ImageType extends AbstractType
         $builder
 //            ->add('file')
             ->add('file', FileType::class, array(
-                'required' => true,
+//                'required' => true,
                 'label' => 'Register a new Image'
             ))
         ;

@@ -76,7 +76,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->$conversations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->conversations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
