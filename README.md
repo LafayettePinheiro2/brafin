@@ -9,9 +9,10 @@ O QUE FALTA FAZER - fazer logo
 
 
     * colocar imagens no editar user e por info no cadastro
+        - permitir adicionar imagens apenas no editar, e não ao adicionar um novo usuario - melhor;
 
 
-    * permitir senha ser em branco no editar user
+    * permitir senha ser em branco no editar user (e ai manter a senha anterior q ele tinha)
 
 
     * popular banco de dados direito no servidor

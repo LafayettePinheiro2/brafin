@@ -35,12 +35,12 @@ class Conversation
     /** @ORM\Column(type="datetime", name="date") */
     private $date;
 
-
     /**
      * Constructor
      */
     public function __construct(){
       $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
+      $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -102,122 +102,94 @@ class Conversation
     }
 
     /**
-     * Set user
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Conversation
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Add user
      *
      * @param \AppBundle\Entity\User $user
      *
-     * @return Message
+     * @return Conversation
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function addUser(\AppBundle\Entity\User $user)
     {
-        $this->user = $user;
+        $this->users[] = $user;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Remove user
      *
-     * @return \AppBundle\Entity\User
+     * @param \AppBundle\Entity\User $user
      */
-    public function getUser()
+    public function removeUser(\AppBundle\Entity\User $user)
     {
-        return $this->user;
+        $this->users->removeElement($user);
     }
 
     /**
-     * Set product
+     * Get users
      *
-     * @param \AppBundle\Entity\Product $product
-     *
-     * @return Message
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setProduct(\AppBundle\Entity\Product $product = null)
+    public function getUsers()
     {
-        $this->product = $product;
+        return $this->users;
+    }
+
+    /**
+     * Add message
+     *
+     * @param \AppBundle\Entity\Message $message
+     *
+     * @return Conversation
+     */
+    public function addMessage(\AppBundle\Entity\Message $message)
+    {
+        $this->messages[] = $message;
 
         return $this;
     }
 
     /**
-     * Get product
+     * Remove message
      *
-     * @return \AppBundle\Entity\Product
+     * @param \AppBundle\Entity\Message $message
      */
-    public function getProduct()
+    public function removeMessage(\AppBundle\Entity\Message $message)
     {
-        return $this->product;
+        $this->messages->removeElement($message);
     }
 
     /**
-     * Set read
+     * Get messages
      *
-     * @param boolean $read
-     *
-     * @return Message
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setRead($read)
+    public function getMessages()
     {
-        $this->read = $read;
-
-        return $this;
-    }
-
-    /**
-     * Get read
-     *
-     * @return boolean
-     */
-    public function getRead()
-    {
-        return $this->read;
-    }
-
-    /**
-     * Set userSender
-     *
-     * @param \AppBundle\Entity\User $userSender
-     *
-     * @return Message
-     */
-    public function setUserSender(\AppBundle\Entity\User $userSender = null)
-    {
-        $this->userSender = $userSender;
-
-        return $this;
-    }
-
-    /**
-     * Get userSender
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUserSender()
-    {
-        return $this->userSender;
-    }
-
-    /**
-     * Set userReceiver
-     *
-     * @param \AppBundle\Entity\User $userReceiver
-     *
-     * @return Message
-     */
-    public function setUserReceiver(\AppBundle\Entity\User $userReceiver = null)
-    {
-        $this->userReceiver = $userReceiver;
-
-        return $this;
-    }
-
-    /**
-     * Get userReceiver
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUserReceiver()
-    {
-        return $this->userReceiver;
+        return $this->messages;
     }
 }
