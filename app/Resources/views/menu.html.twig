@@ -19,11 +19,7 @@
                         <a href="{{ path('category_index') }}">Categories</a>
                     </li>
 
-                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <li class="">
-                            <a href="{{ path('login') }}">Login</a>
-                        </li>
-                    {% else %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="">
                             <a href="{{ path('user_index') }}">Users</a>
                         </li>
@@ -35,8 +31,14 @@
                         <li class="">
                             <a href="{{ path('logout') }}">Logout</a>
                         </li>
+                    {% else %}
+                        <li class="">
+                            <a href="{{ path('login') }}">Login</a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('user_new') }}">Register</a>
+                        </li>
                     {% endif %}
-
                 </ul>
             </div>
 

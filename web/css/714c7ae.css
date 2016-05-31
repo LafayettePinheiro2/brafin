@@ -187,6 +187,10 @@ body{
     border-radius: 3px;
 }
 
+.nav-sidebar {
+    padding-left: 15px;    
+}
+
 .nav-sidebar, .nav-sidebar li a {
     color: #777;
 }

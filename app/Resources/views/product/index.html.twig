@@ -7,13 +7,14 @@
             <div class="header-page col-md-12">
                 <h1 class="pull-left">Products list</h1>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                  <a href="{{ path('product_new') }}" class="btn btn-primary pull-right" role="button">Register a new Product</a>
+                    <a href="{{ path('product_new') }}" class="btn btn-primary pull-right" role="button">Register a new Product</a>
+                {% else %}
+                    <a href="{{ path('user_new') }}" class="btn btn-primary pull-right" role="button">Register now so you can get products</a>
                 {% endif %}
             </div>
         </div>
         <div class="row">
             {% for product in products %}
-            <!-- PRODUCT ITEM -->
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading arrow_box text-center">
@@ -35,7 +36,7 @@
                                     {% endfor %}
                                 </li>
                             {% endif %}
-                            <li class="list-group-item"><i class=""></i> Available: {% if product.available %}Yes{% else %}No{% endif %}</li>
+                            <li class="list-group-item">Available: {% if product.available %}<span class="btn btn-success">Yes</span>{% else %}<span class="btn btn-danger">No</span>{% endif %}</li>
                         </ul>
                     </div>
 
@@ -44,10 +45,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- /PRODUCT ITEM -->
             {% endfor %}
-
         </div>
     </div>
 {% endblock %}

@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\User;
-use AppBundle\Form\UserType;
 use AppBundle\Entity\Image;
 
 /**
@@ -38,9 +38,11 @@ class UserController extends Controller
      * Make Admin.
      *
      * @Route("/make-admin/{id}", name="make_admin")
+     * @Security("has_role('ROLE_ADMIN')")
      * @Method("GET")
      */
      public function makeAdmin(User $user){
+
        $user->setRoles('ROLE_ADMIN');
 
        $em = $this->getDoctrine()->getManager();
