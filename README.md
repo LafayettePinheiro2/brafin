@@ -24,7 +24,7 @@ O QUE FALTA FAZER - fazer logo
 
     * testar usar a aplicação toda quando tiver completa
 
-
+    * Deletar usuario -> perguntar se tem certeza
 
 
 O QUE PODE SER MELHORADO - fazer se der tempo
