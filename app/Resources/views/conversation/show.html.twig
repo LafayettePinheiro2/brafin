@@ -1,26 +1,33 @@
+{% if messages != null %}
+    {% for message in messages %}
+        <div class="col-md-12">
+        {% if app.user.name == message.author %}
+        <div class="panel panel-default panel-message pull-right">
+        {% else %}
+        <div class="panel panel-default panel-message panel-left">
+        {% endif %}
+          <div class="panel-body">
+            {{ message.text }}
+          </div>
+          <div class="panel-footer">
+              Author: {{ message.author }} <p class="pull-right">{{ message.date|date('H:i m/d') }}</p>
+          </div>
+        </div>
+        </div>
+    {% endfor %}
 
+    <div class="col-md-12">
+      {{ form_start(form, {'action' : path('conversation_msg_new', { 'conversation-id': id })}) }}
 
-{% for message in messages[1] %}
-    <div class="panel panel-default">
-      <div class="panel-body">
-        {{ message.text }}
-      </div>
-      <div class="panel-footer">{{ message.date|date('H:i:s    m-d') }}</div>
+        {{ form_label(form.text, 'Respond:', {'label_attr': {'class': ''} }) }}
+        {{ form_widget(form.text, {'attr': {'class': 'form-control', 'rows':'6'} }) }}
+        <br><br>
+        <div class="col-md-12 form-group">
+            <button id="msg-button" type="submit" class="btn btn-justified">Send</button>
+        </div>
+
+        {{ form_rest(form) }}
+
+      {{ form_end(form) }}
     </div>
-
-{% endfor %}
-
-<div class="col-md-12">
-  {{ form_start(form) }}
-
-    {{ form_label(form.text, 'Respond:', {'label_attr': {'class': ''} }) }}
-    {{ form_widget(form.text, {'attr': {'class': 'form-control', 'rows':'6'} }) }}
-    <br><br>
-    <div class="col-md-12 form-group">
-        <button type="submit" class="btn btn-group-justified">Send</button>
-    </div>
-
-    {{ form_rest(form) }}
-
-  {{ form_end(form) }}
-</div>
+{% endif %}

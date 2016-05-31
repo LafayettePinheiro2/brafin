@@ -3,12 +3,14 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Conversation;
 use AppBundle\Entity\Message;
 use AppBundle\Form\ConversationType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Conversation controller.
@@ -21,32 +23,70 @@ class ConversationController extends Controller
      * Lists all Conversation entities.
      *
      * @Route("/", name="conversation_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $conversations = $this->getUser()->getConversations();
-
-        $messages = new \Doctrine\Common\Collections\ArrayCollection();;
-
-        foreach($conversations as $conversation){
-          $messages[$conversation->getId()] = $conversation->getMessages();
-        }
-
+        $messages = new \Doctrine\Common\Collections\ArrayCollection();
         $message = new Message();
         $form = $this->createForm('AppBundle\Form\MessageType', $message);
+        $conversations = $this->getUser()->getConversations();
 
+        //fetch all messages from conversations
+        foreach($conversations as $conversation){
+            $messages[$conversation->getId()] = $conversation->getMessages();
+        }
 
-      //  $conversations = $em->getRepository('AppBundle:Conversation')->findAll();
+        //AJAX call
+        if($request->isXmlHttpRequest()){
+            $id = $request->request->get('conversationId');
+            $content =  $this->renderView('conversation/show.html.twig', array(
+                'messages' => $messages[$id],
+                'form' => $form->createView(),
+                'id' => $id,
+            ));
+
+            $jsonResponse = new JsonResponse();
+            $jsonResponse->setData(array('content' => $content));
+            return $jsonResponse;
+        }
 
         return $this->render('conversation/index.html.twig', array(
             'conversations' => $conversations,
-            'messages' => $messages,
-            'form' => $form->createView(),
         ));
     }
+
+    /**
+     * Creates a new Message entity.
+     *
+     * @Route("/new_message", name="conversation_msg_new")
+     * @Method({"GET", "POST"})
+     */
+
+     public function newMsgAction(Request $request)
+     {
+         $message = new Message();
+         $form = $this->createForm('AppBundle\Form\MessageType', $message);
+         $form->handleRequest($request);
+         $conversationId = $request->query->get('conversation-id');
+         //New Message
+         if ($form->isSubmitted() && $form->isValid()) {
+             $conversation = $this->getDoctrine()->getRepository('AppBundle:Conversation')->find($conversationId);
+             $author = $this->getUser()->getName();
+             $date = date('H:i:s d-m-Y');
+
+             $message->setViewed(false);
+             $message->setDate(new \DateTime($date));
+             $message->setConversation($conversation);
+             $message->setAuthor($author);
+
+             $em = $this->getDoctrine()->getManager();
+             $em->persist($message);
+             $em->flush();
+
+             return $this->redirectToRoute('conversation_index', array('conversationId' => $conversationId));
+         }
+     }
 
     /**
      * Creates a new Conversation entity.

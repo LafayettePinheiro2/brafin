@@ -41,6 +41,7 @@ class Conversation
      */
     public function __construct(){
       $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
+      $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -99,126 +100,6 @@ class Conversation
     public function getDate()
     {
         return $this->date;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return Message
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Set product
-     *
-     * @param \AppBundle\Entity\Product $product
-     *
-     * @return Message
-     */
-    public function setProduct(\AppBundle\Entity\Product $product = null)
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    /**
-     * Get product
-     *
-     * @return \AppBundle\Entity\Product
-     */
-    public function getProduct()
-    {
-        return $this->product;
-    }
-
-    /**
-     * Set read
-     *
-     * @param boolean $read
-     *
-     * @return Message
-     */
-    public function setRead($read)
-    {
-        $this->read = $read;
-
-        return $this;
-    }
-
-    /**
-     * Get read
-     *
-     * @return boolean
-     */
-    public function getRead()
-    {
-        return $this->read;
-    }
-
-    /**
-     * Set userSender
-     *
-     * @param \AppBundle\Entity\User $userSender
-     *
-     * @return Message
-     */
-    public function setUserSender(\AppBundle\Entity\User $userSender = null)
-    {
-        $this->userSender = $userSender;
-
-        return $this;
-    }
-
-    /**
-     * Get userSender
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUserSender()
-    {
-        return $this->userSender;
-    }
-
-    /**
-     * Set userReceiver
-     *
-     * @param \AppBundle\Entity\User $userReceiver
-     *
-     * @return Message
-     */
-    public function setUserReceiver(\AppBundle\Entity\User $userReceiver = null)
-    {
-        $this->userReceiver = $userReceiver;
-
-        return $this;
-    }
-
-    /**
-     * Get userReceiver
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUserReceiver()
-    {
-        return $this->userReceiver;
     }
 
     /**

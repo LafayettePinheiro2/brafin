@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
-
 class MessageType extends AbstractType
 {
     /**
@@ -18,9 +17,6 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('text')
-            ->add('read', HiddenType::class, array(
-                'data' => false,
-            ))
         ;
     }
 

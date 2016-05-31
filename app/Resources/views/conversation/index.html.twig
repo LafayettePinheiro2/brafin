@@ -9,10 +9,9 @@
       <div class="message-sidebar">
         <div class="sidebar col-md-12">
           <ul class="nav nav-sidebar" style="padding-left: 15px;" >
-              <h4>Messagebox</h4>
-
               {% for conversation in conversations %}
-                  <li><a  data-value="" href="{{ path('message_index') }}">{{ conversation.id | capitalize}}</a></li>
+                  <li><a class="conversation-list" data-value="{{ conversation.id }}" href="{{ path('conversation_index') }}">{{ conversation.title | capitalize}}</a></li>
+                  <div class="devider"></div>
               {% endfor %}
 
               <li><br /></li>
@@ -23,12 +22,11 @@
       </div>
 
       <div class="message-content">
-        {% include 'conversation/show.html.twig' %}
       </div>
 
     </div>
 
-
+    <!-- IF IS DEFINED POST PARAMETER, SHOW "NEGOCIATE HERE WITH USER BLA" -->
 
 </div>
 {% endblock %}

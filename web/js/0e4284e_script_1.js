@@ -30,10 +30,10 @@ $('.userId').on('click', function(e){
 
 $('.category-list').on('click', function(e){
     e.preventDefault();
-    
-    var clickedLink = $(this);    
+
+    var clickedLink = $(this);
     var categoryId = {'categoryId' : clickedLink.attr('data-value')};
-    
+
     $.ajax({
         type: "POST",
         url: clickedLink.attr('href'),
@@ -41,7 +41,7 @@ $('.category-list').on('click', function(e){
         async: false,
         success: function(response, dataType)
         {
-            $('.homepage-products-content').html(response.content);  
+            $('.homepage-products-content').html(response.content);
         },
 
         error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -51,6 +51,46 @@ $('.category-list').on('click', function(e){
     });
 });
 
+$('.conversation-list').on('click', function(e){
+    e.preventDefault();
+
+    var conversationId = {'conversationId' : $(this).attr('data-value')};
+
+    $.ajax({
+        type: "POST",
+        url: $(this).attr('href'),
+        data: conversationId,
+        async: false,
+        success: function(response, dataType)
+        {
+          $('.message-content').html(response.content);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown)
+        {
+            $('.message-content').html('Error, please try again.');
+        }
+    });
+});
+
+$('#msg-button').on('click', function(){
+
+    var conversationId = '{{ id }}';
+    console.log('asdasd');
+    $.ajax({
+        type: "POST",
+        url: $(this).attr('href'),
+        data: conversationId,
+        async: false,
+        success: function(response, dataType)
+        {
+          $('.message-content').html(response.content);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown)
+        {
+            $('.message-content').html('Error, please try again.');
+        }
+    });
+});
 
 $('#search-sidebar').on('change paste keyup', function(){
     if($(this).val().length >= 3 || $(this).val().length === 0){
@@ -68,5 +108,5 @@ $('#search-sidebar').on('change paste keyup', function(){
                 $('.homepage-products-content').html('Error, please try again.');
             }
         });
-    }  
+    }
 });

@@ -23,15 +23,20 @@ class Message
     private $text;
 
     /**
+     * @ORM\Column(type="text", length=1000)
+     */
+    private $author;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Conversation", inversedBy="messages")
      * @ORM\JoinColumn(name="conversation_id", referencedColumnName="id")
      */
     private $conversation;
 
     /**
-     * @ORM\Column(type="boolean", name="read", options={"default": false})
+     * @ORM\Column(type="boolean", name="viewed", options={"default": false})
      */
-    private $read;
+    private $viewed;
 
     /** @ORM\Column(type="datetime", name="date") */
     private $date;
@@ -72,6 +77,30 @@ class Message
     }
 
     /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return Message
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
      * Set date
      *
      * @param \DateTime $date
@@ -96,27 +125,27 @@ class Message
     }
 
     /**
-     * Set read
+     * Set viewed
      *
      * @param boolean $read
      *
      * @return Message
      */
-    public function setRead($read)
+    public function setViewed($view)
     {
-        $this->read = $read;
+        $this->viewed = $view;
 
         return $this;
     }
 
     /**
-     * Get read
+     * Get viewed
      *
      * @return boolean
      */
-    public function getRead()
+    public function getViewed()
     {
-        return $this->read;
+        return $this->viewed;
     }
 
 

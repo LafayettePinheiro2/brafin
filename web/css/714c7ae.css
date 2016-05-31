@@ -42,13 +42,21 @@ body{
   float: right;
 }
 
+.panel-message {
+    width: 50%;
+}
+
 .verticalDevider {
      border-left:1px solid #38546d;
      border-right:1px solid #16222c;
      height:80px;
      position:absolute;
-     right:249px;
+     right:75%;
      top:10px;
+}
+
+.divider {
+    margin: 40px 0;
 }
 
 /*END MESSAGE PAGE*/
