@@ -37,7 +37,7 @@ class UserController extends Controller
     /**
      * Make Admin.
      *
-     * @Route("/{id}", name="make_admin")
+     * @Route("/make-admin/{id}", name="make_admin")
      * @Method("GET")
      */
      public function makeAdmin(User $user){
@@ -88,7 +88,7 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("/{id}/", name="user_show")
+     * @Route("/{id}", name="user_show")
      * @Method("GET")
      */
     public function showAction(User $user)

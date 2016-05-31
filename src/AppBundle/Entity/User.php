@@ -69,6 +69,15 @@ class User implements UserInterface
      */
     private $images;
 
+    /**
+     * @ORM\Column(type="boolean", name="newmsg", options={"default": false})
+     */
+    private $newmsg;
+
+    /**
+     * @ORM\Column(type="integer", name="credit", options={"default": 0})
+     */
+    private $credit;
 
     /**
      * Constructor
@@ -76,7 +85,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->$conversations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->conversations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -322,8 +331,6 @@ class User implements UserInterface
     {
     }
 
-
-
     /**
      * Add conversation
      *
@@ -356,5 +363,53 @@ class User implements UserInterface
     public function getConversations()
     {
         return $this->conversations;
+    }
+
+    /**
+     * Set newmsg
+     *
+     * @param boolean $newmsg
+     *
+     * @return Message
+     */
+    public function setNewmsg($newmsg)
+    {
+        $this->newmsg = $newmsg;
+
+        return $this;
+    }
+
+    /**
+     * Get newmsg
+     *
+     * @return boolean
+     */
+    public function getNewmsg()
+    {
+        return $this->newmsg;
+    }
+
+    /**
+     * Set credit
+     *
+     * @param integer $credit
+     *
+     * @return User
+     */
+    public function setCredit($credit)
+    {
+        $this->credit = $credit;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return integer
+     */
+    public function getCredit()
+    {
+        return $this->credit;
     }
 }

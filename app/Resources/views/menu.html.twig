@@ -13,9 +13,6 @@
 
                 <ul class="nav navbar-nav">
                     <li class="">
-                        <a href="{{ path('user_index') }}">Users</a>
-                    </li>
-                    <li class="">
                         <a href="{{ path('product_index') }}">Products</a>
                     </li>
                     <li class="">
@@ -27,6 +24,10 @@
                             <a href="{{ path('login') }}">Login</a>
                         </li>
                     {% else %}
+                        <li class="">
+                            <a href="{{ path('user_index') }}">Users</a>
+                        </li>
+
                         <li class="">
                             <a href="{{ path('user_show', {'id' : app.user.id }) }}">User: {{ app.user.username }}</a>
                         </li>

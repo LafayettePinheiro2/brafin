@@ -35,7 +35,6 @@ class Conversation
     /** @ORM\Column(type="datetime", name="date") */
     private $date;
 
-
     /**
      * Constructor
      */
