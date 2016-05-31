@@ -28,6 +28,10 @@ body{
     color: red;
 }
 
+.no-products {
+    margin-top: 100px;
+}
+
 /*END HOMEPAGE*/
 
 /*MESSAGE PAGE*/
@@ -52,6 +56,21 @@ body{
      margin-right: auto;
 }
 /*END MESSAGE PAGE*/
+
+
+
+/*USER PAGE*/
+
+.user-page-description {    
+    width: 100%;
+    margin-top: 21px;
+    margin-bottom: 50px;
+}
+
+/*END USER PAGE*/
+
+
+
 
 /*CATEGORIES PAGE*/
 
@@ -93,6 +112,8 @@ body{
     margin-right: 2px;
     padding: 5px 4px;
     border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 3px;
 }
 
 .product-category:hover {
@@ -105,7 +126,7 @@ body{
 }
 
 .panel-body-products {
-    min-height: 274px;
+    min-height: 350px;
 }
 
 .header-page {

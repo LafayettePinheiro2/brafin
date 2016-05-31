@@ -65,10 +65,19 @@ class User implements UserInterface
     private $conversations;
 
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="user", cascade={"remove"})
      */
     private $images;
 
+    /**
+     * @ORM\Column(type="boolean", name="newmsg", options={"default": false})
+     */
+    private $newmsg;
+
+    /**
+     * @ORM\Column(type="integer", name="credit", options={"default": 0})
+     */
+    private $credit;
 
     /**
      * Constructor
@@ -76,7 +85,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->$conversations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->conversations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -322,5 +331,85 @@ class User implements UserInterface
     {
     }
 
+    /**
+     * Add conversation
+     *
+     * @param \AppBundle\Entity\Conversation $conversation
+     *
+     * @return User
+     */
+    public function addConversation(\AppBundle\Entity\Conversation $conversation)
+    {
+        $this->conversations[] = $conversation;
 
+        return $this;
+    }
+
+    /**
+     * Remove conversation
+     *
+     * @param \AppBundle\Entity\Conversation $conversation
+     */
+    public function removeConversation(\AppBundle\Entity\Conversation $conversation)
+    {
+        $this->conversations->removeElement($conversation);
+    }
+
+    /**
+     * Get conversations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getConversations()
+    {
+        return $this->conversations;
+    }
+
+    /**
+     * Set newmsg
+     *
+     * @param boolean $newmsg
+     *
+     * @return Message
+     */
+    public function setNewmsg($newmsg)
+    {
+        $this->newmsg = $newmsg;
+
+        return $this;
+    }
+
+    /**
+     * Get newmsg
+     *
+     * @return boolean
+     */
+    public function getNewmsg()
+    {
+        return $this->newmsg;
+    }
+
+    /**
+     * Set credit
+     *
+     * @param integer $credit
+     *
+     * @return User
+     */
+    public function setCredit($credit)
+    {
+        $this->credit = $credit;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return integer
+     */
+    public function getCredit()
+    {
+        return $this->credit;
+    }
 }

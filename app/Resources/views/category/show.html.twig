@@ -16,42 +16,8 @@
             </div>
         </div>
         <div class="row">
-            {% if products|length > 0 %}
-                {% for product in products %}
-                <div class="col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-heading arrow_box text-center">
-                            <a href="{{ path('product_show', { 'id': product.id }) }}"><h4>{{ product.name }}</h4></a>
-                        </div>
-
-                        <div class="panel-body-products panel-body text-center">
-                            <ul class="list-group list-group-flush text-center">
-                                {% if product.images|length > 0 %}
-                                    <a href="{{ path('product_show', { 'id': product.id }) }}"><img src="{{ asset('uploads/' ~ product.images[0].path) }}" height="100" width="130"></a>
-                                {% endif %}
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> Owner: {{ product.user }}</li>
-                                {% if product.categories|length > 0 %}
-                                    <li class="list-group-item">
-                                        {% for category in product.categories %}
-                                            <a href="{{ path('category_show', {'id' : category.id}) }}" class="product-category">
-                                                {{ category.name }}
-                                            </a>
-                                        {% endfor %}
-                                    </li>
-                                {% endif %}
-                                <li class="list-group-item"><i class=""></i> Available: {% if product.available %}Yes{% else %}No{% endif %}</li>
-                            </ul>
-                        </div>
-
-                        <div class="panel-footer text-center">
-                            <a class="btn btn-primary" href="{{ path('product_show', { 'id': product.id }) }}">Check it</a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <div class="col-md-12"><h1>No products found for this category</h1></div>
-            {% endif %}
+            {% include 'product/content.html.twig' %}
+        </div>
         </div>
     </div>
 {% endblock %}
