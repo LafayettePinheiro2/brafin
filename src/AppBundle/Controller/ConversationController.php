@@ -86,10 +86,9 @@ class ConversationController extends Controller
          $users = new \Doctrine\Common\Collections\ArrayCollection();
          $form = $this->createForm('AppBundle\Form\MessageType', $message);
          $form->handleRequest($request);
-
          $date = date('H:i:s d-m-Y');
          $author = $this->getUser()->getName();
-
+         $userLogged = $this->getUser();
 
          if ($form->isSubmitted() && $form->isValid()) {
              $conversationId = $request->query->get('conversationId');
@@ -102,14 +101,23 @@ class ConversationController extends Controller
                  }
              }
 
-             $user->setNewmsg(true);
-             $message->setViewed(false);
+             if($userLogged->getNewmsg()){
+                 $userLogged->setNewmsg(false);
+             }
+
+             if(!$user->getNewmsg()){
+                 $user->setNewmsg(true);
+             }
+
              $message->setDate(new \DateTime($date));
              $message->setConversation($conversation);
              $message->setAuthor($author);
 
              $em = $this->getDoctrine()->getManager();
              $em->persist($message);
+             $em->persist($conversation);
+             $em->persist($userLogged);
+             $em->persist($user);
              $em->flush();
 
              return $this->redirectToRoute('conversation_index', array('conversationId' => $conversationId));
@@ -124,22 +132,42 @@ class ConversationController extends Controller
      */
     public function newAction(Request $request)
     {
+        $senderId = $request->query->get('senderId');
+        $receiverId = $request->query->get('receiverId');
+        $productId = $request->query->get('productId');
+        $date = date('H:i:s d-m-Y');
+
         $conversation = new Conversation();
-        $form = $this->createForm('AppBundle\Form\ConversationType', $conversation);
-        $form->handleRequest($request);
+        $message = new Message();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($conversation);
-            $em->flush();
+        $senderUser = $this->getDoctrine()->getRepository('AppBundle:User')->find($senderId);
+        $receiverUser = $this->getDoctrine()->getRepository('AppBundle:User')->find($receiverId);
+        $product = $this->getDoctrine()->getRepository('AppBundle:Product')->find($productId);
+        $productName = $product->getName();
 
-            return $this->redirectToRoute('conversation_show', array('id' => $conversation->getId()));
-        }
+        $conversation->addUser($senderUser);
+        $conversation->addUser($receiverUser);
+        $conversation->setTitle("User: ".$senderUser->getName()." interested in your product: ".$productName );
 
-        return $this->render('conversation/new.html.twig', array(
-            'conversation' => $conversation,
-            'form' => $form->createView(),
-        ));
+        $message->setDate(new \DateTime($date));
+        $message->setConversation($conversation);
+        $message->setAuthor('Brafin System');
+        $message->setText("Hello! The user: ".$senderUser->getName()." is interested in your product: ".$productName.".
+                                 We've send this message to facilitate your negociations. Bra trades!");
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($conversation);
+        $em->persist($message);
+        $em->flush();
+
+        $senderUser->addConversation($conversation);
+        $receiverUser->addConversation($conversation);
+
+        $em->persist($senderUser);
+        $em->persist($receiverUser);
+        $em->flush();
+
+        return $this->redirectToRoute('conversation_index');
     }
 
     /**

@@ -33,11 +33,6 @@ class Message
      */
     private $conversation;
 
-    /**
-     * @ORM\Column(type="boolean", name="viewed", options={"default": false})
-     */
-    private $viewed;
-
     /** @ORM\Column(type="datetime", name="date") */
     private $date;
 
@@ -123,31 +118,6 @@ class Message
     {
         return $this->date;
     }
-
-    /**
-     * Set viewed
-     *
-     * @param boolean $read
-     *
-     * @return Message
-     */
-    public function setViewed($view)
-    {
-        $this->viewed = $view;
-
-        return $this;
-    }
-
-    /**
-     * Get viewed
-     *
-     * @return boolean
-     */
-    public function getViewed()
-    {
-        return $this->viewed;
-    }
-
 
     /**
      * Set conversation

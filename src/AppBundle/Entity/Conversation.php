@@ -32,9 +32,6 @@ class Conversation
      */
     private $messages;
 
-    /** @ORM\Column(type="datetime", name="date") */
-    private $date;
-
     /**
      * Constructor
      */
@@ -75,30 +72,6 @@ class Conversation
     public function getText()
     {
         return $this->text;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Message
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 
     /**
@@ -192,4 +165,5 @@ class Conversation
     {
         return $this->messages;
     }
+
 }

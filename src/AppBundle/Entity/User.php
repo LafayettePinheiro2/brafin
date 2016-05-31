@@ -366,30 +366,6 @@ class User implements UserInterface
     }
 
     /**
-     * Set newmsg
-     *
-     * @param boolean $newmsg
-     *
-     * @return Message
-     */
-    public function setNewmsg($newmsg)
-    {
-        $this->newmsg = $newmsg;
-
-        return $this;
-    }
-
-    /**
-     * Get newmsg
-     *
-     * @return boolean
-     */
-    public function getNewmsg()
-    {
-        return $this->newmsg;
-    }
-
-    /**
      * Set credit
      *
      * @param integer $credit
@@ -411,5 +387,29 @@ class User implements UserInterface
     public function getCredit()
     {
         return $this->credit;
+    }
+
+    /**
+     * Set newmsg
+     *
+     * @param boolean $newmsg
+     *
+     * @return Message
+     */
+    public function setNewmsg($newmsg)
+    {
+        $this->newmsg = $newmsg;
+
+        return $this;
+    }
+
+    /**
+     * Get newmsg
+     *
+     * @return boolean
+     */
+    public function getNewmsg()
+    {
+        return $this->newmsg;
     }
 }

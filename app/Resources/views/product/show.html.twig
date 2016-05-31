@@ -49,10 +49,16 @@
                 <div class="col-md-8">
                     <p><strong>Owner: </strong>{{ product.user }}</p>
                     <p class="product-description"><strong>Description: </strong>{{ product.description }}</p>
-                    <p><strong>Available: </strong>{% if product.available %}Yes{% else %}No{% endif %}</p>
+                    <p><strong>Available: </strong>{% if product.available %}<span class="btn btn-success">Yes</span>{% else %}<span class="btn btn-danger">No</span>{% endif %}</p>
+                    {% if app.user.id is defined %}
+                        {% if app.user.id != product.getUser().id %}
+                        <p><strong><a class="btn btn-primary pull-center" href="{{ path('conversation_new', {'senderId': app.user.id, 'receiverId': product.getUser().getId(), 'productId': product.id}) }}"> I'm Interested!</a></strong></p>
+                        {% endif %}
+                    {% endif %}
                 </div>
 
             </div>
+
         </div>
     </div>
 {% endblock %}

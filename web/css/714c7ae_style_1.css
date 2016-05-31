@@ -46,19 +46,11 @@ body{
     width: 50%;
 }
 
-.verticalDevider {
-     border-left:1px solid #38546d;
-     border-right:1px solid #16222c;
-     height:80px;
-     position:absolute;
-     right:75%;
-     top:10px;
+.panel-system {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
 }
-
-.divider {
-    margin: 40px 0;
-}
-
 /*END MESSAGE PAGE*/
 
 /*CATEGORIES PAGE*/
@@ -175,8 +167,8 @@ body{
 }
 
 
-/*SIDEBAR*/
 
+/*SIDEBAR*/
 
 .sidebar {
 }
@@ -188,7 +180,7 @@ body{
 }
 
 .nav-sidebar {
-    padding-left: 15px;    
+    padding-left: 15px;
 }
 
 .nav-sidebar, .nav-sidebar li a {

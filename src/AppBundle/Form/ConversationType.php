@@ -16,11 +16,10 @@ class ConversationType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('date', 'datetime')
             ->add('users')
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

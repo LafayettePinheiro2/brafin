@@ -97,10 +97,13 @@ class UserController extends Controller
     {
         $deleteForm = $this->createDeleteForm($user);
         $products = $user->getProducts();
+        $hasNewMsg = $user->getNewmsg();
+
         return $this->render('user/show.html.twig', array(
             'user' => $user,
             'products' => $products,
             'delete_form' => $deleteForm->createView(),
+            'hasNewMsg' => $hasNewMsg,
         ));
     }
 
