@@ -5,14 +5,20 @@
 <div class="container">
     <div class="row">
         <div class="header-page col-md-12">
-            <h1 class="pull-left">Welcome to brafin</h1>
-            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a href="{{ path('user_new') }}" class="btn btn-primary pull-right" role="button">Register now!</a>
-            {% endif %}
+            
         </div>
     </div>
-    <p>This is a website based on trades. To show your interest on a product, you must first register one of your own to earn credits.
-            With credits, you will have the chance to get products. When you show interest, we will put you in touch with the owner through your messages, so you can proceed with negociations.<br>Good trades! :)</p><br><br>
+        
+    <header class="jumbotron hero-spacer">
+            <h1>Welcome to brafin</h1>
+            <p>This is a website based on trades. To show your interest on a product, you must first register one of your own to earn credits.
+            With credits, you will have the chance to get products. When you show interest, we will put you in touch with the owner through your messages, so you can proceed with negociations.<br>Good trades! :)</p>
+            <p>{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a href="{{ path('user_new') }}" class="btn btn-primary pull-right" role="button">Register now!</a>
+            {% endif %}
+            </p>
+    </header>
+    <br><br>
 
     <div class="row">
         <div class="homepage-sidebar-content">
