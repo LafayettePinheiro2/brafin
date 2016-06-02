@@ -1,45 +1,3 @@
-
-Coloca o nome do lado do que ta fazendo pra os 2 não pegar a mesma coisa. E dps apaga quando fizer
-
-O QUE FALTA FAZER - fazer logo
-
-
-
-  --(fazendo)  * colocar no servidor rodando direito
-
-
-    * colocar imagens no editar user e por info no cadastro
-        - permitir adicionar imagens apenas no editar, e não ao adicionar um novo usuario - melhor;
-
-
-    * permitir senha ser em branco no editar user (e ai manter a senha anterior q ele tinha)
-
-
-    * popular banco de dados direito no servidor
-
-
-    * testar usar a aplicação toda quando tiver completa
-
-    * Deletar usuario -> perguntar se tem certeza
-
-
-O QUE PODE SER MELHORADO - fazer se der tempo
-
-
-    * mostrar opção de ordenar produtos por mais recentes, ou já fazer isso direto
-
-
-    * manipular imagens melhor nos controllers de produto e usuario e usar assert Image
-
-
-    * checar delete de categorias, produtos, imagens, usuario quando tem dependencia - THIAGO
-
-
-
-    * usar mesmo arquivo dos produtos nas 3 páginas que mostra produtos.
-
-
-
 Brafin
 ======
 
@@ -53,7 +11,11 @@ A Symfony project created on May 16, 2016, 6:28 pm.
 To install the application after cloning:
 
 
-1) Give permission to /var directory inside the project
+
+1) Set your database parameters at app/config/parameters.yml file.
+
+
+2) Give permission to /var directory inside the project
 
     HTTPDUSER="ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1"
 
@@ -61,11 +23,11 @@ To install the application after cloning:
 
     sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:'whoami':rwX var
 
-2) Execute these commands on the following order, inside the project folder:
+3) Execute these commands on the following order, inside the project folder
 
         composer install                                            -> install dependencies
         
-        composer update         
+        composer update         -> this two composer commands are very important to everything work
         
         php bin/console assets:install                              -> install web assets (CSS, js, images)
         
@@ -73,13 +35,46 @@ To install the application after cloning:
         
         php bin/console doctrine:schema:update --force              -> generate schema database through annotation
         
-        php bin/console doctrine:generate:entities AppBundle        -> generate entities based on schema
+        php bin/console doctrine:generate:entities AppBundle        -> generate entities based on SQL schema
         
         php bin/console cache:clear
         
         mkdir web/uploads 
         
-        * give writing permission under this directory to the webserver user, normally www-data.
+        * give writing permission under this directory to the webserver user, normally www-data (for example sudo chown -R www-data www-data web/uploads).
 
 
-3) Access on browser http://localhost/[ProjectDirName]/web/app_dev.php
+
+	3.1) access on your browser
+
+	http://localhost/[ProjectDirName]/web/config.php
+
+	To test if your webserver and the framework are well configured. If not, follow the tips to solve it.
+
+
+4) Access on browser http://localhost/[ProjectDirName]/web/app.php and use the application.
+
+
+
+
+
+Obs: The first admin user has to be setted manually, setting the field roles at user database table as ROLE_ADMIN. By default each new user 
+is setted as ROLE_USER, the normal user. And ROLE_ADMIN user has more privileges and can set other users as admins.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
