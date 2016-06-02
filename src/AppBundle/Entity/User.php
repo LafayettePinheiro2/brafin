@@ -54,7 +54,7 @@ class User implements UserInterface
     private $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="user", cascade={"remove"})
      */
     private $products;
 
