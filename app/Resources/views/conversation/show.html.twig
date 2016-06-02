@@ -28,7 +28,11 @@
         <br><br>
         <div class="col-md-12 form-group">
             <button id="msg-button" type="submit" class="btn btn-justified">Send</button>
+            {% if app.user == owner %}
+            <a href="{{ path('donate_product', {'productId': product.id, 'interestedUser': interestedUser.id}) }}" type="button" class="btn btn-success donate-product pull-right">Donate Product to {{ interestedUser.name }}</a>
+            {% endif %}
         </div>
+
 
         {{ form_rest(form) }}
 

@@ -6,10 +6,10 @@
                 <a href="{{ path('product_show', { 'id': product.id }) }}"><h4>{{ product.name }}</h4></a>
             </div>
 
-            <div class="panel-body-products panel-body text-center">                    
+            <div class="panel-body-products panel-body text-center">
                 <ul class="list-group list-group-flush text-center">
                     {% if product.images|length > 0 %}
-                        <a href="{{ path('product_show', { 'id': product.id }) }}"><img src="{{ asset('uploads/' ~ product.images[0].path) }}" height="100" width="130"></a>                            
+                        <a href="{{ path('product_show', { 'id': product.id }) }}"><img src="{{ asset('uploads/' ~ product.images[0].path) }}" height="100" width="130"></a>
                     {% endif %}
                     <li class="list-group-item">Owner: {{ product.user }}</li>
                     {% if product.categories|length > 0 %}
@@ -21,7 +21,7 @@
                             {% endfor %}
                         </li>
                     {% endif %}
-                    <li class="list-group-item">Available: {% if product.available %}<span class="btn btn-success">Yes</span>{% else %}<span class="btn btn-danger">No</btn>{% endif %}</li>
+                    <li class="list-group-item">Available: {% if product.available %}<span <span style="color: green;"><b>Yes</b></span>{% else %}<span <span style="color: red;"><b>No</b></btn>{% endif %}</li>
                 </ul>
             </div>
 
