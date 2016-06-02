@@ -18,6 +18,7 @@
 
                 {% if app.user.id is defined and app.user.id == app.request.get('id')%}
                     <h4 class="user-page-description pull-left">Here you can manage your products and your account information</h4>
+                    <h4 style="color: green;" class="pull-left"> Available Credits: {{ user.credit }}</h4>
                 {% endif %}
 
                 {% if app.user.id is defined and (app.user.id == app.request.get('id') and hasNewMsg) %}

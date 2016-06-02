@@ -28,9 +28,16 @@ class Conversation
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="conversation")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="conversation", cascade={"persist", "remove"})
      */
     private $messages;
+
+
+     /**
+      * @ORM\ManyToOne(targetEntity="Product", inversedBy="conversation")
+      * @ORM\JoinTable(name="product_conversation")
+      */
+    private $product;
 
     /**
      * Constructor
@@ -166,4 +173,28 @@ class Conversation
         return $this->messages;
     }
 
+
+    /**
+     * Set product
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return Conversation
+     */
+    public function setProduct(\AppBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \AppBundle\Entity\Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
 }

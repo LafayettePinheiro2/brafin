@@ -55,9 +55,9 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $product->setUser($this->getUser());
-            
+
             $images = $product->getImages();
             $count = count($images);
             $img = $images[$count-1];
@@ -93,6 +93,43 @@ class ProductController extends Controller
             'product' => $product,
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    /**
+     * Donates a Product entity.
+     *
+     * @Route("/donate/", name="donate_product")
+     * @Method("GET")
+     */
+    public function donateProduct(Request $request)
+    {
+        $productId = $request->query->get('productId');
+        $userId = $request->query->get('interestedUser');
+
+        $product = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product')->find($productId);
+        $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->find($userId);
+        $conversations = $product->getConversation();
+        $credits = $user->getCredit();
+
+        $product->setAvailable(false);
+        $user->setCredit($credits-1);
+        $user->setNewmsg(false);
+
+        $em = $this->getDoctrine()->getManager();
+
+        foreach($conversations as $conversation){
+            $product->removeConversation($conversation);
+
+            $em->remove($conversation);
+            $em->flush();
+        }
+
+        $em->persist($product);
+        $em->persist($user);
+
+        $em->flush();
+
+        return $this->redirectToRoute('user_show', array('id' => $this->getUser()->getId()));
     }
 
     /**

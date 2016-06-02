@@ -41,10 +41,24 @@ class ConversationController extends Controller
         //AJAX call
         if($request->isXmlHttpRequest()){
             $id = $request->query->get('conversationId');
+            $conversation = $this->getDoctrine()->getRepository('AppBundle:Conversation')->find($id);
+            $product = $conversation->getProduct();
+            $users = $conversation->getUsers();
+            $owner = $product->getUser();
+
+            foreach($users as $user){
+                if($user !== $owner){
+                    $interestedUser = $user;
+                }
+            }
+
             $content =  $this->renderView('conversation/show.html.twig', array(
                 'messages' => $messages[$id],
                 'id' => $id,
                 'form' => $form->createView(),
+                'owner' => $owner,
+                'product' => $product,
+                'interestedUser' => $interestedUser,
             ));
 
             $jsonResponse = new JsonResponse();
@@ -54,12 +68,26 @@ class ConversationController extends Controller
 
         if(null !== $request->query->get('conversationId')){
             $id = $request->query->get('conversationId');
+            $conversation = $this->getDoctrine()->getRepository('AppBundle:Conversation')->find($id);
+            $product = $conversation->getProduct();
+            $users = $conversation->getUsers();
+            $owner = $product->getUser();
+
+            foreach($users as $user){
+                if($user !== $owner){
+                    $interestedUser = $user;
+                }
+            }
+
 
             return $this->render('conversation/index.html.twig', array(
                 'messages' => $messages[$request->query->get('conversationId')],
                 'id' => $id,
                 'conversations' => $conversations,
                 'form' => $form->createView(),
+                'owner' => $owner,
+                'product' => $product,
+                'interestedUser' => $interestedUser,
             ));
         } else {
             return $this->render('conversation/index.html.twig', array(
@@ -67,6 +95,9 @@ class ConversationController extends Controller
                 'id' => null,
                 'conversations' => $conversations,
                 'form' => $form->createView(),
+                'owner' => null,
+                'product' => null,
+                'interestedUser' => null,
             ));
         }
 
@@ -101,6 +132,7 @@ class ConversationController extends Controller
                  }
              }
 
+             //Mailbox Notice
              if($userLogged->getNewmsg()){
                  $userLogged->setNewmsg(false);
              }
@@ -147,7 +179,8 @@ class ConversationController extends Controller
 
         $conversation->addUser($senderUser);
         $conversation->addUser($receiverUser);
-        $conversation->setTitle("User: ".$senderUser->getName()." interested in your product: ".$productName );
+        $conversation->setTitle("Negociation of: ".$productName );
+        $conversation->setProduct($product);
 
         $message->setDate(new \DateTime($date));
         $message->setConversation($conversation);
@@ -162,9 +195,11 @@ class ConversationController extends Controller
 
         $senderUser->addConversation($conversation);
         $receiverUser->addConversation($conversation);
+        $product->addConversation($conversation);
 
         $em->persist($senderUser);
         $em->persist($receiverUser);
+        $em->persist($product);
         $em->flush();
 
         return $this->redirectToRoute('conversation_index');

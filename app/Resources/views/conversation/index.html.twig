@@ -10,8 +10,8 @@
         <div class="sidebar col-md-12">
           <ul class="nav nav-sidebar" style="padding-left: 15px;" >
               {% for conversation in conversations %}
-                  <li><a class="conversation-list" data-value="{{ conversation.id }}" href="{{ path('conversation_index') }}">{{ conversation.title | capitalize}}</a></li>
-                  <div class="devider"></div>
+                  <li><a class="conversation-list" data-value="{{ conversation.id }}" href="{{ path('conversation_index') }}"><b>{{ conversation.title | capitalize}}</b></a></li>
+                  <hr style="border-top: 0.5px dashed #8c8b8b;">
               {% endfor %}
 
               <li><br /></li>

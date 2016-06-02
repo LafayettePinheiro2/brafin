@@ -10,6 +10,7 @@ $('.product-remove-image').on('click', function(e){
     e.preventDefault();
 
     var agree = confirm('Are you sure that want delete this image?');
+
     if(agree) {
         window.location.href = $(this).attr('href');
     } else {
@@ -21,6 +22,18 @@ $('.userId').on('click', function(e){
     e.preventDefault();
 
     var agree = confirm('Are you sure you want to make this user administrator?');
+    if(agree) {
+        window.location.href = $(this).attr('href');
+    } else {
+        return false;
+    }
+});
+
+$('.donate-product').on('click', function(e){
+    e.preventDefault();
+    
+    var agree = confirm("Are you sure you want to donate your product to this user?");
+
     if(agree) {
         window.location.href = $(this).attr('href');
     } else {
