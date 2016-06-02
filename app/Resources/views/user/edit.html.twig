@@ -12,6 +12,20 @@
             </div>
         </div>
     </div>
+            
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(image_form, {'action' : path('image_user_new', { 'user-id': user.id })} ) }}
+                {{ form_widget(image_form) }}
+
+                <div class="form-group">
+                    <button type="submit" class="product-image-button btn btn-primary">Add Image</button>
+                </div>
+                {{ form_end(image_form) }}
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="row">

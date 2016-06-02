@@ -41,6 +41,7 @@ class ImageController extends Controller
      */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $image = new Image();
         $form = $this->createForm('AppBundle\Form\ImageType', $image);
         $form->handleRequest($request);
@@ -67,7 +68,8 @@ class ImageController extends Controller
      * @Method({"GET", "POST"})
      */
     public function newImageProductAction(Request $request)
-    {        
+    {       
+        $em = $this->getDoctrine()->getManager();
         $image = new Image();
         $form = $this->createForm('AppBundle\Form\ImageType', $image);
         $form->handleRequest($request);
@@ -88,6 +90,39 @@ class ImageController extends Controller
             ;
             
             return $this->redirectToRoute('product_edit', array('id' => $productId));
+            
+        }
+    }
+    
+    /**
+     * Creates a new Image entity for the product.
+     *
+     * @Route("/new-image-user", name="image_user_new")
+     * @Method({"GET", "POST"})
+     */
+    public function newImageUserAction(Request $request)
+    {        
+        $em = $this->getDoctrine()->getManager();
+        $image = new Image();
+        $form = $this->createForm('AppBundle\Form\ImageType', $image);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $userId = $request->query->get('user-id');
+            $user = $em->getRepository('AppBundle:User')->find($userId);
+            $image->setUser($user);
+            
+            $em = $this->getDoctrine()->getManager();            
+            $em->persist($image);
+            $em->flush();
+            
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Image added to the user with success')
+            ;
+            
+            return $this->redirectToRoute('user_edit', array('id' => $userId));
             
         }
     }

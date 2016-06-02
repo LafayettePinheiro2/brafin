@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                {{ form_start(image_form, {'action' : path('image_new', { 'product-id': product.id })} ) }}
+                {{ form_start(image_form, {'action' : path('image_product_new', { 'product-id': product.id })} ) }}
                 {{ form_widget(image_form) }}
 
                 <div class="form-group">
