@@ -13,8 +13,33 @@
                         <input class="btn btn-danger pull-right" type="submit" value="Delete profile">
                     {{ form_end(delete_form) }}
                 {% endif %}
+                
+                
+                <div class="float-left col-md-4">
+                    {% if user.images|length > 0 %}
+                        <div id="carousel-img" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner" role="listbox">
+                                {% for image in user.images %}
+                                    <div class="item item-carousel-user">
+                                        <img src="{{ asset('uploads/' ~ image.path) }}" >
+                                    </div>
+                                {% endfor %}
+                            </div>
 
-                <h1 class="pull-left">{{ user.name | capitalize }}'s userpage.</h1>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-img" role="button" data-slide="prev">
+                                <span class="icon-prev" aria-hidden="true"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-img" role="button" data-slide="next">
+                                <span class="icon-next" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    {% else %}
+                        <h3>No image available for this produt</h3>
+                    {% endif %}
+                </div>
+
+                <h1 class="pull-left col-md-12">{{ user.name | capitalize }}'s userpage.</h1>
 
                 {% if app.user.id is defined and app.user.id == app.request.get('id')%}
                     <h4 class="user-page-description pull-left">Here you can manage your products and your account information</h4>

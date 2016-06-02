@@ -49,7 +49,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $roles;
 
@@ -65,7 +65,7 @@ class User implements UserInterface
     private $conversations;
 
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="user", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="user", cascade={"persist", "remove"})
      */
     private $images;
 

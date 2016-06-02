@@ -61,6 +61,9 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
+        
+        $img = new Image();
+        $user->getImages()->add($img);
 
         $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
@@ -70,6 +73,11 @@ class UserController extends Controller
                 ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setPlainPassword(null);
+            
+            $images = $user->getImages();
+            $count = count($images);
+            $img = $images[$count-1];
+            $img->setUser($user);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -116,7 +124,14 @@ class UserController extends Controller
         $editForm = $this->createForm('AppBundle\Form\UserType', $user);
         $editForm->handleRequest($request);
 
+        $image = new Image();
+        $imageForm = $this->createForm('AppBundle\Form\ImageType', $image);
+        
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+            $user->setPlainPassword(null);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -127,7 +142,8 @@ class UserController extends Controller
         return $this->render('user/edit.html.twig', array(
             'user' => $user,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'delete_form' => $deleteForm->createView(),            
+            'image_form' => $imageForm->createView(),
         ));
     }
 
@@ -150,6 +166,34 @@ class UserController extends Controller
 
         return $this->redirectToRoute('user_index');
     }
+    
+    
+    /**
+     * Remove an image from the user
+     *
+     * @Route("/{id}/remove-image", name="user_delete_image")
+     * @Method({"GET", "POST", "DELETE"})
+     */
+    public function removeImageAction(Request $request, User $user)
+    {
+        $imageId  = $request->query->get('image-id');
+
+        $em = $this->getDoctrine()->getManager();
+        $image = $em->getRepository('AppBundle:Image')->find($imageId);
+
+        $user->removeImage($image);
+        $em->persist($user);
+        $em->remove($image);
+        $em->flush();
+
+        $request->getSession()
+            ->getFlashBag()
+            ->add('success', 'Image removed with success')
+        ;
+
+        return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+    }
+    
 
     /**
      * Creates a form to delete a User entity.

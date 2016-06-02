@@ -44,7 +44,7 @@ class ProductController extends Controller
     public function newAction(Request $request)
     {
         $product = new Product();
-        $user = new User();
+//        $user = new User();
 
         $img = new Image();
         $product->getImages()->add($img);

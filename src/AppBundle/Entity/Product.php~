@@ -52,7 +52,7 @@ class Product
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity="Conversation", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="Conversation", mappedBy="product", cascade={"persist", "remove"})
      */
     private $conversation;
 
@@ -266,5 +266,29 @@ class Product
     public function getConversation()
     {
         return $this->conversation;
+    }
+
+    /**
+     * Add conversation
+     *
+     * @param \AppBundle\Entity\Conversation $conversation
+     *
+     * @return Product
+     */
+    public function addConversation(\AppBundle\Entity\Conversation $conversation)
+    {
+        $this->conversation[] = $conversation;
+
+        return $this;
+    }
+
+    /**
+     * Remove conversation
+     *
+     * @param \AppBundle\Entity\Conversation $conversation
+     */
+    public function removeConversation(\AppBundle\Entity\Conversation $conversation)
+    {
+        $this->conversation->removeElement($conversation);
     }
 }

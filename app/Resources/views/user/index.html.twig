@@ -14,9 +14,14 @@
         <div class="row">
             {% for user in users %}
                 <div class="col-md-4">
-                    <div class="panel panel-grey">
+                    <div class="panel-body-users panel panel-grey">
                         <div class="panel-heading">
                             <h3>{{ user.name | capitalize}}</h3>
+                        </div>
+                        <div class="text-center">
+                        {% if user.images|length > 0 %}
+                            <a href="{{ path('user_show', { 'id': user.id }) }}"><img src="{{ asset('uploads/' ~ user.images[0].path) }}" height="100" width="130"></a><br><br>
+                        {% endif %}
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b>Email:</b> {{ user.email }}</li>

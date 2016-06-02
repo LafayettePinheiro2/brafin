@@ -125,7 +125,7 @@ body{
     text-decoration: none;
 }
 
-.panel-body-products {
+.panel-body-products, .panel-body-users {
     min-height: 350px;
 }
 
@@ -179,7 +179,7 @@ body{
 }
 
 .carousel-control .icon-next {
-    margin-right: -8px;
+    margin-right: -10px;
     color: black;
 }
 

@@ -31,7 +31,6 @@ class ProductType extends AbstractType
             ))
             ->add('images', CollectionType::class, array(
                 'entry_type' => ImageType::class,
-                'allow_add' => true,
             ));
     }
 

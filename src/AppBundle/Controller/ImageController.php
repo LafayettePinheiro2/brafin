@@ -73,10 +73,10 @@ class ImageController extends Controller
         $image = new Image();
         $form = $this->createForm('AppBundle\Form\ImageType', $image);
         $form->handleRequest($request);
+        $productId = $request->query->get('product-id');
         
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $productId = $request->query->get('product-id');
             $product = $em->getRepository('AppBundle:Product')->find($productId);
             $image->setProduct($product);
             
@@ -91,7 +91,11 @@ class ImageController extends Controller
             
             return $this->redirectToRoute('product_edit', array('id' => $productId));
             
-        }
+        }        
+        
+        return $this->redirectToRoute('product_edit', array(
+            'id' => $productId,
+        ));
     }
     
     /**
@@ -107,9 +111,9 @@ class ImageController extends Controller
         $form = $this->createForm('AppBundle\Form\ImageType', $image);
         $form->handleRequest($request);
         
+        $userId = $request->query->get('user-id');
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $userId = $request->query->get('user-id');
             $user = $em->getRepository('AppBundle:User')->find($userId);
             $image->setUser($user);
             
@@ -125,6 +129,9 @@ class ImageController extends Controller
             return $this->redirectToRoute('user_edit', array('id' => $userId));
             
         }
+        return $this->redirectToRoute('user_edit', array(
+            'id' => $userId,
+        ));
     }
     
 

@@ -26,8 +26,23 @@
             </div>
         </div>
     </div>
-
+            
     <div class="container">
+        <div class="row">
+            <div class="col-md-12 user-images-wraper">
+                {% for image in user.images %}
+                    <div class="col-md-3 panel">
+                        <img src="{{ asset('uploads/' ~ image.path) }}" height="160" width="210" >
+                        <a class="user-remove-image" href="{{ path('user_delete_image', {'id' : user.id, 'image-id' : image.id }) }}">Delete Image</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+            
+            <br /><br />
+<br />
+<br />    <div class="container">
         <div class="row">
             {{ form_start(edit_form) }}
             <div class="col-md-6 form-group">
@@ -59,8 +74,14 @@
             <div class="col-md-12 form-group">
                 <button type="submit" class="btn btn-primary">Update your profile</button>
             </div>
+            
+            {{ form_row(edit_form._token) }}
+            {{ form_row(edit_form.roles) }}
+            {{ form_row(edit_form.newmsg) }}
+            {{ form_row(edit_form.credit) }}
 
-            {{ form_end(edit_form) }}
+           
+            {{ form_end(edit_form, {'render_rest': false}) }}
         </div>
     </div>
 {% endblock %}
